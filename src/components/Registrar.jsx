@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Segment, Tab, Divider } from 'semantic-ui-react'
 
+import Driver from './Driver';
 import RegistrarInput from './RegistrarInput';
 import Error from './Error';
 import DidResult from './result/DidResult';
@@ -14,24 +15,13 @@ export class Registrar extends Component {
 	constructor (props) {
 		super(props);
 		this.state = { loading: false, didReference: '', didDocument: '', registrarMetadata: '', methodMetadata: '', error: '' };
-		this.examples = [
-			'did:sov:WRfXPg8dantKVubE3HX8pw',
-			'did:btcr:xkrn-xzcr-qqlv-j6sl',
-			'did:btcr:x6lj-wzvr-qqrv-m80w',
-			'did:v1:test:nym:3AEJTDMSxDDQpyUftjuoeZ2Bazp4Bswj1ce7FJGybCUu',
-			'did:v1:test:nym:UxYjr6F3hqwiF3yffplpcsV3pXSWSzVQ2396WT65e2E',
-			'did:uport:2omWsSGspY7zhxaG6uHyoGtcYxoGeeohQXz',
-			'did:stack:v0:16EMaNw3pkn3v6f2BgnSSs53zAKH4Q8YJg-0',
-			'did:erc725:ropsten:2F2B37C890824242Cb9B0FE5614fA2221B79901E',
-			'did:ipid:QmbFuwbp7yFDTMX6t8HGcEiy3iHhfvng89A19naCYGKEBj',
-			'did:dom:Jjbfgyu7My4RrbRNrXTPBz4PnhnMEE',
-			'did:muport:Qmbrpc3gKtapsL5k6nZuzYvoMQZwMup5qWvss1q4XuaRJd',
-			'did:eth:0x3b0BC51Ab9De1e5B7B6E34E5b960285805C41736',
-			'did:ethr:0x3b0BC51Ab9De1e5B7B6E34E5b960285805C41736'
-		];
 	}
 
     render() {
+		const drivers = this.props.drivers.map((driver, i) =>
+			<Driver key={i} name={driver.name} />
+		);
+
     	var resultOrError;
     	if (this.state.error) resultOrError = (
     		<Error text={this.state.error} />
@@ -47,14 +37,14 @@ export class Registrar extends Component {
         return (
             <Segment className="registrar">
                 <RegistrarInput 
-                	examples={this.examples}
+					drivers={this.props.drivers}
                 	onClear={this.onClear.bind(this)}
                 	onLoading={this.onLoading.bind(this)}
                 	onResult={this.onResult.bind(this)}
                 	onError={this.onError.bind(this)} />
                 <Divider />
                 <Tab panes={[
-					{ menuItem: 'DID RESULT', render: () =>
+					{ menuItem: 'RESULT', render: () =>
 					<Tab.Pane loading={this.state.loading}>
 						{resultOrError}
 					</Tab.Pane> },

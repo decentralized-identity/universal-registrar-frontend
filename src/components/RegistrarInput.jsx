@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { Item, Column, Input, Button, Dropdown } from 'semantic-ui-react'
+import { Segment, Item, Label, Divider, Button } from 'semantic-ui-react'
 
 export class RegistrarInput extends Component {
 
 	constructor (props) {
 		super(props)
-		this.state = { input: 'did:sov:WRfXPg8dantKVubE3HX8pw', example: '' };
-		this.onChangeInput = this.onChangeInput.bind(this);
+		this.state = { };
 	}
 
-	onClickResolve() {
+	onClickRegister(driverName) {
 		this.props.onLoading();
 		axios
 			.get(env.backendUrl + '1.0/identifiers/' + encodeURIComponent(this.state.input))
@@ -35,28 +34,36 @@ export class RegistrarInput extends Component {
 			});
     }
 
+	onClickUpdate(driverName) {
+		this.props.onLoading();
+    }
+
+	onClickRevoke(driverName) {
+		this.props.onLoading();
+    }
+
 	onClickClear() {
 		this.props.onClear();
     }
 
-	onChangeExample(e, data) {
-		this.setState({ input: data.value });
-		this.setState({ example: '' });
-    }
-
-	onChangeInput(e) {
-		this.setState({ input: e.target.value });
-	}
-
     render() {
-    	const examples = this.props.examples.map((example) => ({ text: example, value: example }));
+		const registerButtons = this.props.drivers.map((driver, i) =>
+			<Button primary key={i} onClick={this.onClickRegister.bind(this, driver.name)}>{driver.name}</Button>
+		);
+		const updateButtons = this.props.drivers.map((driver, i) =>
+			<Button primary key={i} onClick={this.onClickUpdate.bind(this, driver.name)}>{driver.name}</Button>
+		);
+		const revokeButtons = this.props.drivers.map((driver, i) =>
+			<Button primary key={i} onClick={this.onClickRevoke.bind(this, driver.name)}>{driver.name}</Button>
+		);
         return (
-        	<Item className="registrar-input">
-           		<Input label='did' value={this.state.input} onChange={this.onChangeInput} />
-                <Button primary onClick={this.onClickResolve.bind(this)}>Resolve</Button>
-                <Button secondary onClick={this.onClickClear.bind(this)}>Clear</Button>
-    			<Dropdown placeholder='Examples' selection options={examples} value={this.state.example} onChange={this.onChangeExample.bind(this)} />
-			</Item>
+        	<Segment className="registrar-input">
+        		<Item><Label>Register:</Label> {registerButtons}</Item> 
+        		<Divider/>
+        		<Item><Label>Update:</Label> {updateButtons}</Item>
+        		<Divider/>
+        		<Item><Label>Revoke:</Label> {revokeButtons}</Item>
+			</Segment>
         );
     }
 }
