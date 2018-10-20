@@ -10,16 +10,17 @@ export class RegistrarInput extends Component {
 		this.state = { };
 	}
 
-	onClickRegister(driverName) {
+	onClickRegister(driverId) {
 		this.props.onLoading();
+		var data = {'jobId':null,'options':{'network':'danube'}};
 		axios
-			.get(env.backendUrl + '1.0/identifiers/' + encodeURIComponent(this.state.input))
+			.post(env.backendUrl + '1.0/register?' + encodeURIComponent(driverId), JSON.stringify(data))
 			.then(response => {
-				const didReference = response.data.didReference;
-				const didDocument = response.data.didDocument;
+				const didState = response.data.didState;
+				const jobId = response.data.jobId;
 				const registrarMetadata = response.data.registrarMetadata;
 				const methodMetadata = response.data.methodMetadata;
-				this.props.onResult(didReference, didDocument, registrarMetadata, methodMetadata);
+				this.props.onResult(didState, jobId, registrarMetadata, methodMetadata);
 			})
 			.catch(error => {
 				if (error.response !== undefined && error.response.data !== undefined) {
@@ -48,21 +49,17 @@ export class RegistrarInput extends Component {
 
     render() {
 		const registerButtons = this.props.drivers.map((driver, i) =>
-			<Button primary key={i} onClick={this.onClickRegister.bind(this, driver.name)}>{driver.name}</Button>
+			<Button secondary key={i} onClick={this.onClickRegister.bind(this, driver.key)}>{driver.name}</Button>
 		);
 		const updateButtons = this.props.drivers.map((driver, i) =>
-			<Button primary key={i} onClick={this.onClickUpdate.bind(this, driver.name)}>{driver.name}</Button>
+			<Button secondary key={i} onClick={this.onClickUpdate.bind(this, driver.key)}>{driver.name}</Button>
 		);
 		const revokeButtons = this.props.drivers.map((driver, i) =>
-			<Button primary key={i} onClick={this.onClickRevoke.bind(this, driver.name)}>{driver.name}</Button>
+			<Button secondary key={i} onClick={this.onClickRevoke.bind(this, driver.key)}>{driver.name}</Button>
 		);
         return (
         	<Segment className="registrar-input">
         		<Item><Label>Register:</Label> {registerButtons}</Item> 
-        		<Divider/>
-        		<Item><Label>Update:</Label> {updateButtons}</Item>
-        		<Divider/>
-        		<Item><Label>Revoke:</Label> {revokeButtons}</Item>
 			</Segment>
         );
     }

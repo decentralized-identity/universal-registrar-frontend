@@ -6,7 +6,7 @@ import Driver from './Driver';
 import RegistrarInput from './RegistrarInput';
 import Error from './Error';
 import DidResult from './result/DidResult';
-import DidDocument from './result/DidDocument';
+import DidState from './result/DidState';
 import RegistrarMetadata from './result/RegistrarMetadata';
 import MethodMetadata from './result/MethodMetadata';
 
@@ -14,7 +14,7 @@ export class Registrar extends Component {
 
 	constructor (props) {
 		super(props);
-		this.state = { loading: false, didReference: '', didDocument: '', registrarMetadata: '', methodMetadata: '', error: '' };
+		this.state = { loading: false, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: '' };
 	}
 
     render() {
@@ -26,13 +26,12 @@ export class Registrar extends Component {
     	if (this.state.error) resultOrError = (
     		<Error text={this.state.error} />
     		);
-    	if (this.state.didReference && this.state.didDocument) resultOrError = (
+    	else if (this.state.didState) resultOrError = (
             <DidResult
-            	didReference={this.state.didReference}
-            	didDocument={this.state.didDocument}
-				registrarMetadata={this.state.registrarMetadata}
-            	error={this.state.error} />
-            );
+            	didState={this.state.didState}
+            	jobId={this.state.jobId}
+				registrarMetadata={this.state.registrarMetadata} />
+			);
 
         return (
             <Segment className="registrar">
@@ -48,10 +47,10 @@ export class Registrar extends Component {
 					<Tab.Pane loading={this.state.loading}>
 						{resultOrError}
 					</Tab.Pane> },
-					{ menuItem: 'DID DOCUMENT', render: () =>
+					{ menuItem: 'DID STATE', render: () =>
 					<Tab.Pane loading={this.state.loading}>
-		                <DidDocument
-		                	didDocument={this.state.didDocument} />
+		                <DidState
+		                	didState={this.state.didState} />
 					</Tab.Pane> },
 					{ menuItem: 'REGISTRAR METADATA', render: () =>
 					<Tab.Pane loading={this.state.loading}>
@@ -60,8 +59,8 @@ export class Registrar extends Component {
 					</Tab.Pane> },
 					{ menuItem: 'METHOD METADATA', render: () =>
 					<Tab.Pane loading={this.state.loading}>
-				<MethodMetadata
-					methodMetadata={this.state.methodMetadata} />
+						<MethodMetadata
+							methodMetadata={this.state.methodMetadata} />
 					</Tab.Pane> }
 				]} />
             </Segment>
@@ -69,19 +68,19 @@ export class Registrar extends Component {
     }
 
     onClear() {
-	this.setState({ loading: false, didReference: '', didDocument: '', registrarMetadata: '', methodMetadata: '', error: '' });
+		this.setState({ loading: false, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: '' });
 	}
 
 	onLoading() {
-	this.setState({ loading: true, didReference: '', didDocument: '', registrarMetadata: '', methodMetadata: '', error: '' });
+		this.setState({ loading: true, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: '' });
 	}
 
-    onResult(didReference, didDocument, registrarMetadata, methodMetadata) {
-	this.setState({ loading: false, didReference: didReference, didDocument: didDocument, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: '' });
+    onResult(didState, jobId, registrarMetadata, methodMetadata) {
+		this.setState({ loading: false, didState: didState, jobId: jobId, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: '' });
 	}
 
     onError(error) {
-	this.setState({ loading: false, didReference: '', didDocument: '', registrarMetadata: '', methodMetadata: '', error: error });
+		this.setState({ loading: false, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: error });
 	}
 }
 

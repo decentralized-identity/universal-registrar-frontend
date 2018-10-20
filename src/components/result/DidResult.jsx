@@ -1,41 +1,62 @@
 import React, { Component } from 'react';
 
-import { Card, Divider } from 'semantic-ui-react'
-
-import DidReference from './DidReference';
-import Service from './Service';
-import PublicKey from './PublicKey';
+import { Segment, Item, Divider } from 'semantic-ui-react'
+import { Highlight } from 'react-fast-highlight';
 
 export class DidResult extends Component {
 
 	render() {
-		var didDocumentServices;
-		if (this.props.didDocument && Array.isArray(this.props.didDocument.service)) didDocumentServices = this.props.didDocument.service;
-		else if (this.props.didDocument && typeof this.props.didDocument.service === 'object') didDocumentServices = Array.of(this.props.didDocument.service);
-		else didDocumentServices = Array.of();
-		const services = didDocumentServices.map((didDocumentService, i) =>
-			<Service key={i} name={didDocumentService.name} type={didDocumentService.type} serviceEndpoint={didDocumentService.serviceEndpoint} selected={this.props.resolverMetadata.selectedServices ? this.props.resolverMetadata.selectedServices.includes(i) : null} />
+		const jobId = this.props.didState.jobId;
+		const state = this.props.didState.state;
+		const identifier = this.props.didState.identifier;
+		const secret = JSON.stringify(this.props.didState.credentials, null, 2);
+
+		var stateClass = 'state-' + state;
+
+		var jobIdItem;
+		if (jobId) jobIdItem = (
+    		<Item>
+    			JOBID: {jobId}
+    		</Item>
 		);
-		var didDocumentPublicKeys;
-		if (this.props.didDocument && Array.isArray(this.props.didDocument.publicKey)) didDocumentPublicKeys = this.props.didDocument.publicKey;
-		else if (this.props.didDocument && typeof this.props.didDocument.publicKey === 'object') didDocumentPublicKeys = Array.of(this.props.didDocument.publicKey);
-		else if (this.props.didDocument && typeof this.props.didDocument.authentication === 'object' && Array.isArray(this.props.didDocument.authentication.publicKey)) didDocumentPublicKeys = this.props.didDocument.authentication.publicKey;
-		else if (this.props.didDocument && typeof this.props.didDocument.authentication === 'object' && typeof this.props.didDocument.authentication.publicKey === 'object') didDocumentPublicKeys = Array.of(this.props.didDocument.authentication.publicKey);
-		else didDocumentPublicKeys = Array.of();
-		const publicKeys = didDocumentPublicKeys.map((didDocumentPublicKey, i) =>
-			<PublicKey key={i} type={didDocumentPublicKey.type} publicKeyBase64={didDocumentPublicKey.publicKeyBase64} publicKeyBase58={didDocumentPublicKey.publicKeyBase58} publicKeyPem={didDocumentPublicKey.publicKeyPem} publicKeyHex={didDocumentPublicKey.publicKeyHex} ethereumAddress={didDocumentPublicKey.ethereumAddress} address={didDocumentPublicKey.address} />
+
+		var stateItem;
+		if (state) stateItem = (
+    		<Item>
+    			STATE: <span className={stateClass}>{state}</span>
+    		</Item>
 		);
+
+		var identifierItem;
+		if (identifier) identifierItem = (
+    		<Segment>
+    			<Item className='identifier-label'>
+    				IDENTIFIER:
+    			</Item>
+		       	<Highlight className='js identifier'>
+        			{identifier}
+        		</Highlight>
+    		</Segment>
+		);
+
+		var secretItem;
+		if (secret) secretItem = (
+    		<Segment>
+    			<Item className='secret-label'>
+    				SECRET:
+    			</Item>
+		       	<Highlight className='js secret'>
+        			{secret}
+        		</Highlight>
+    		</Segment>
+		);
+
         return (
         	<div className='did-result'>
-				<DidReference didReference={this.props.resolverMetadata.didReference} />
-				<Divider />
-				<Card.Group>
-					{services}
-				</Card.Group>
-				<Divider />
-				<Card.Group>
-				{publicKeys}
-	        	</Card.Group>
+        		{jobIdItem}
+        		{stateItem}
+        		{identifierItem}
+        		{secretItem}
         	</div>
         );
     }

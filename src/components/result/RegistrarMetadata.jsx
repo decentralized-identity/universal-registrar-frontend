@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 
 import { Highlight } from 'react-fast-highlight';
 
-export class ResolverMetadata extends Component {
+export class RegistrarMetadata extends Component {
 
     render() {
-    	const resolverMetadata = this.props.resolverMetadata == '' ? '' : JSON.stringify(this.props.resolverMetadata, null, 2);
+    	const registrarMetadata = this.props.registrarMetadata == '' ? '' : JSON.stringify(this.props.registrarMetadata, null, 2);
         return (
         	<Highlight className='js'>
-                {resolverMetadata}
+                {registrarMetadata}
             </Highlight>
         );
     }
 }
 
-export default ResolverMetadata;
+export default RegistrarMetadata;

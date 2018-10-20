@@ -5,7 +5,7 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
-      'env.backendUrl': JSON.stringify('http://localhost:8080/')
+      'env.backendUrl': JSON.stringify('http://localhost:9080/')
     })
   ]
 });

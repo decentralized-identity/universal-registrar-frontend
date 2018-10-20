@@ -1,6 +1,38 @@
-@import 'components/result/did-reference';
-@import 'components/result/service';
-@import 'components/result/publickey';
-
 .did-result {
+}
+
+.did-result .state-finished {
+	background-color: lightgreen;
+	font-family: monospace;
+	padding: 5px;
+	margin: 10px;
+}
+
+.did-result .state-wait {
+	background-color: yellow;
+	padding: 5px;
+}
+
+.did-result .state-action {
+	background-color: blue;
+	padding: 5px;
+}
+
+.did-result .state-failed {
+	background-color: red;
+	padding: 5px;
+}
+
+.did-result .identifier-label {
+	font-weight: bold;
+}
+
+.did-result .identifier {
+}
+
+.did-result .secret-label {
+	font-weight: bold;
+}
+
+.did-result .secret {
 }
