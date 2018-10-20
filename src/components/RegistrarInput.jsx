@@ -12,7 +12,7 @@ export class RegistrarInput extends Component {
 
 	onClickRegister(driverId) {
 		this.props.onLoading();
-		var data = {'jobId':null,'options':{'network':'danube'}};
+		var data = {'jobId':null,'options':{'network':'stn'}};
 		axios
 			.post(env.backendUrl + '1.0/register?' + encodeURIComponent(driverId), JSON.stringify(data))
 			.then(response => {
