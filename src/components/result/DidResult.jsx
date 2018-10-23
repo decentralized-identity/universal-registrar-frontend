@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 
-import { Segment, Item, Divider } from 'semantic-ui-react'
+import { Segment, Item, Divider } from 'semantic-ui-react';
 import { Highlight } from 'react-fast-highlight';
 
 export class DidResult extends Component {
 
 	render() {
-		const jobId = this.props.didState.jobId;
+		const jobId = this.props.jobId;
 		const state = this.props.didState.state;
 		const identifier = this.props.didState.identifier;
-		const secret = JSON.stringify(this.props.didState.credentials, null, 2);
+		const secret = JSON.stringify(this.props.didState.secret, null, 2);
 
 		var stateClass = 'state-' + state;
 
 		var jobIdItem;
 		if (jobId) jobIdItem = (
     		<Item>
-    			JOBID: {jobId}
+    			<span className="jobid-label">JOBID:</span> <span className="jobid">{jobId}</span>
     		</Item>
 		);
 
 		var stateItem;
 		if (state) stateItem = (
-    		<Item>
-    			STATE: <span className={stateClass}>{state}</span>
+    		<Item className="state-item">
+    			<span clssName="state-label">STATE:</span> <span className={stateClass}>{state}</span>
     		</Item>
 		);
 
@@ -33,9 +33,9 @@ export class DidResult extends Component {
     			<Item className='identifier-label'>
     				IDENTIFIER:
     			</Item>
-		       	<Highlight className='js identifier'>
+		       	<Item className='identifier'>
         			{identifier}
-        		</Highlight>
+        		</Item>
     		</Segment>
 		);
 
@@ -45,7 +45,7 @@ export class DidResult extends Component {
     			<Item className='secret-label'>
     				SECRET:
     			</Item>
-		       	<Highlight className='js secret'>
+		       	<Highlight className='secret'>
         			{secret}
         		</Highlight>
     		</Segment>

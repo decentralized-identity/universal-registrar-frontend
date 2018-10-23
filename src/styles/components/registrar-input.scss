@@ -1,3 +1,6 @@
+@import 'components/add/add-publickey';
+@import 'components/add/add-service';
+
 .registrar-input {
 }
 
@@ -5,11 +8,42 @@
 	margin-right: 20px;
 }
 
+.registrar-input button.operationButton {
+	margin-bottom: 5px;
+	width: 150px;
+}
+
 .registrar-input .label {
 	margin-right: 20px;
 	width: 100px;
 }
 
-.registrar-input div.dropdown {
-	width: 450px;
+.registrar-input .operation {
+	font-weight: bold;
+	padding: 10px;
+}
+
+.registrar-input .driverId {
+	font-family: monospace;
+	padding: 10px;
+}
+
+.registrar-input .options-label {
+	margin-top: 10px;
+}
+
+.registrar-input .options {
+	font-family: monospace;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.registrar-input .secret-label {
+	margin-top: 10px;
+}
+
+.registrar-input .secret {
+	font-family: monospace;
+	padding: 10px;
+	margin-top: 10px;
 }

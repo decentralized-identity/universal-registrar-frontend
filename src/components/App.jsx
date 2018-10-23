@@ -12,7 +12,8 @@ export class App extends Component {
 		this.state = { drivers: [
 			{key: 'did:btcr', name: 'did:btcr'}, 
 			{key: 'did:sov', name: 'did:sov'},
-			{key: 'did:v1', name: 'did:v1'}
+			{key: 'did:v1', name: 'did:v1'},
+			{key: 'did:erc725', name: 'did:erc725'}
 		] };
 	}
 
