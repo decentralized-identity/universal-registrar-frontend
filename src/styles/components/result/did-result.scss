@@ -1,6 +1,14 @@
 .did-result {
 }
 
+.did-result .state-label {
+	font-weight: bold;
+}
+
+.did-result .jobid-label {
+	font-weight: bold;
+}
+
 .did-result .state-finished {
 	background-color: lightgreen;
 	font-family: monospace;
@@ -11,14 +19,6 @@
 .did-result .state-wait {
 	background-color: yellow;
 	padding: 5px;
-}
-
-.did-result .state-label {
-	font-weight: bold;
-}
-
-.did-result .state-item {
-	font-weight: bold;
 }
 
 .did-result .state-item {
