@@ -23,7 +23,7 @@ export class DidResult extends Component {
 		var stateItem;
 		if (state) stateItem = (
     		<Item className="state-item">
-    			<span clssName="state-label">STATE:</span> <span className={stateClass}>{state}</span>
+				<span className="state-label">STATE:</span> <span className={stateClass}>{state}</span>
     		</Item>
 		);
 

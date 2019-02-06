@@ -28,8 +28,8 @@ export class Registrar extends Component {
     		);
     	else if (this.state.didState) resultOrError = (
             <DidResult
-            	didState={this.state.didState}
-            	jobId={this.state.jobId}
+				didState={this.state.didState}
+				jobId={this.state.jobId}
 				registrarMetadata={this.state.registrarMetadata} />
 			);
 
