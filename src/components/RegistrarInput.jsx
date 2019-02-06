@@ -152,10 +152,10 @@ export class RegistrarInput extends Component {
 		var addPublicKeyService;
 		if ("register" === this.state.operation || "update" === this.state.operation) {
 			addPublicKeyService = (
-				<table><tr>
-					<td><AddPublicKey /></td>
-					<td><AddService /></td>
-				</tr></table>
+				<table>
+					<AddService />
+					<AddPublicKey />
+				</table>
 			);
 		}
 

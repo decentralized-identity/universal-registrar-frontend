@@ -27,11 +27,13 @@ export class AddService extends Component {
     render() {
     	const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
         return (
-        	<span className="add-service">
-        		<Item className="service-label">SERVICE:</Item>
-				<Input label='service' value={this.state.input} onChange={this.onChangeInput} />
-				<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
-			</span>
+        	<tr>
+	        	<td className="add-service">
+	        		<Item className="service-label">SERVICE:</Item>
+					<Input label='service' value={this.state.input} onChange={this.onChangeInput} />
+					<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
+				</td>
+			</tr>
         );
     }
 }
