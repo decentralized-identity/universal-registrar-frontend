@@ -94,19 +94,19 @@ export class RegistrarInput extends Component {
     	var revokeButtons;
 		if (! this.state.operation) {
 			const registerButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" secondary key={i} onClick={this.onClickRegister.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary key={i} onClick={this.onClickRegister.bind(this, driver.key)}>{driver.name}</Button>
 			);
 			registerButtons = (
 				<Item className="buttons"><Label>Register:</Label>{registerButtonsList}</Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" secondary key={i} onClick={this.onClickUpdate.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary key={i} onClick={this.onClickUpdate.bind(this, driver.key)}>{driver.name}</Button>
 			);
 			updateButtons = (
 				<Item className="buttons"><Label>Update:</Label>{updateButtonsList}</Item>
 			);
 			const revokeButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" secondary key={i} onClick={this.onClickRevoke.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary key={i} onClick={this.onClickRevoke.bind(this, driver.key)}>{driver.name}</Button>
 			);
 			revokeButtons = (
 				<Item className="buttons"><Label>Revoke:</Label>{revokeButtonsList}</Item>
@@ -175,19 +175,19 @@ export class RegistrarInput extends Component {
 		const options = {
 			'register': {
 				'did:btcr': { 'chain': 'TESTNET' },
-				'did:sov': { 'network': 'stn' },
+				'did:sov': { 'network': 'builder' },
 				'did:v1': { },
 				'did:erc725': { }
 			},
 			'update': {
 				'did:btcr': { 'chain': 'TESTNET' },
-				'did:sov': { 'network': 'stn' },
+				'did:sov': { 'network': 'builder' },
 				'did:v1': { },
 				'did:erc725': { }
 			},
 			'revoke': {
 				'did:btcr': { 'chain': 'TESTNET' },
-				'did:sov': { 'network': 'stn' },
+				'did:sov': { 'network': 'builder' },
 				'did:v1': { },
 				'did:erc725': { }
 			}
