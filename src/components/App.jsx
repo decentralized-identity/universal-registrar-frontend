@@ -17,16 +17,16 @@ export class App extends Component {
 		] };
 	}
 
-    render() {
-        return (
+	render() {
+		return (
 			<div className="app">
-                <Drivers drivers={this.state.drivers} />
+				<Drivers drivers={this.state.drivers} />
 				<Heading />
 				<Registrar drivers={this.state.drivers} />
 				<Footer />
 			</div>
-        );
-    }
+		);
+	}
 }
 
 export default App;

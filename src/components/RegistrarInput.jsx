@@ -11,22 +11,22 @@ export class RegistrarInput extends Component {
 
 	constructor (props) {
 		super(props)
-		this.state = { operation: null, driverId: null, jobId: null, options: null, secret: null };
+		this.state = { operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: null, addPublicKeys: null, addAuthentications: null };
 		this.onChangeOptions = this.onChangeOptions.bind(this);
 		this.onChangeSecret = this.onChangeSecret.bind(this);
 	}
 
 	onClickRegister(driverId) {
 		this.setState({ operation: 'register', driverId: driverId, jobId: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
-    }
+	}
 
 	onClickUpdate(driverId) {
 		this.setState({ operation: 'update', driverId: driverId, jobId: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
-    }
+	}
 
-	onClickRevoke(driverId) {
-		this.setState({ operation: 'revoke', driverId: driverId, jobId: null, options: this.defaultOptions('revoke', driverId), secret: this.defaultSecret('revoke', driverId) });
-    }
+	onClickDeactivate(driverId) {
+		this.setState({ operation: 'deactivate', driverId: driverId, jobId: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
+	}
 
 	onClickGo() {
 		this.props.onLoading();
@@ -44,20 +44,20 @@ export class RegistrarInput extends Component {
 			.catch(error => {
 				if (error.response !== undefined && error.response.data !== undefined) {
 					this.props.onError(error.response.data);
-			    } else if (error.request !== undefined) {
+				} else if (error.request !== undefined) {
 					this.props.onError(String(error) + ": " + JSON.stringify(error.request));
-			    } else if (error.message !== undefined) {
+				} else if (error.message !== undefined) {
 					this.props.onError(error.message);
-			    } else {
+				} else {
 					this.props.onError(String(error));
-			    }
+				}
 			});
-    }
+	}
 
 	onClickClear() {
 		this.setState({ operation: null, driverId: null, jobId: null, options: null, secret: null });
 		this.props.onClear();
-    }
+	}
 
 	onChangeOptions(e) {
 		this.setState({ options: e.target.value });
@@ -67,31 +67,31 @@ export class RegistrarInput extends Component {
 		this.setState({ secret: e.target.value });
 	}
 
-    render() {
-    	var jobIdItem;
-    	if (this.state.jobId) {
-    		jobIdItem = (
-    			<Segment>
+	render() {
+		var jobIdItem;
+		if (this.state.jobId) {
+			jobIdItem = (
+				<Segment>
 					<span className="jobid-label">JOB ID: </span>
 					<span className="jobid">{this.state.jobId}</span>
 				</Segment>
-    		);
-    	}
+			);
+		}
 
 		var goClearButtons;
 		if (this.state.operation && this.state.driverId) {
 			goClearButtons = (
 				<Item>
 					{jobIdItem}
-	                <Button primary onClick={this.onClickGo.bind(this)}>{this.state.operation} → {this.state.driverId}</Button>
-	                <Button secondary onClick={this.onClickClear.bind(this)}>Clear</Button>
-	            </Item>
+					<Button primary onClick={this.onClickGo.bind(this)}>{this.state.operation} → {this.state.driverId}</Button>
+					<Button secondary onClick={this.onClickClear.bind(this)}>Clear</Button>
+				</Item>
 			);
 		}
 
-    	var registerButtons;
-    	var updateButtons;
-    	var revokeButtons;
+		var registerButtons;
+		var updateButtons;
+		var deactivateButtons;
 		if (! this.state.operation) {
 			const registerButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary key={i} onClick={this.onClickRegister.bind(this, driver.key)}>{driver.name}</Button>
@@ -105,37 +105,37 @@ export class RegistrarInput extends Component {
 			updateButtons = (
 				<Item className="buttons"><Label>Update:</Label>{updateButtonsList}</Item>
 			);
-			const revokeButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary key={i} onClick={this.onClickRevoke.bind(this, driver.key)}>{driver.name}</Button>
+			const deactivateButtonsList = this.props.drivers.map((driver, i) =>
+				<Button className="operationButton" primary key={i} onClick={this.onClickDeactivate.bind(this, driver.key)}>{driver.name}</Button>
 			);
-			revokeButtons = (
-				<Item className="buttons"><Label>Revoke:</Label>{revokeButtonsList}</Item>
+			deactivateButtons = (
+				<Item className="buttons"><Label>Deactivate:</Label>{deactivateButtonsList}</Item>
 			);
 		}
 
-    	var optionsInput;
-    	if (this.state.options) {
-    		optionsInput = (
-    			<td>
-	    			<Item>
-	    				<Item className="options-label">OPTIONS:</Item>
+		var optionsInput;
+		if (this.state.options) {
+			optionsInput = (
+				<td>
+					<Item>
+						<Item className="options-label">OPTIONS:</Item>
 						<TextArea className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions} />
 					</Item>
 				</td>
-    		);
-    	}
+			);
+		}
 
-    	var secretInput;
-    	if (this.state.secret) {
-    		secretInput = (
-    			<td>
-	    			<Item>
-	    				<Item className="secret-label">SECRET:</Item>
+		var secretInput;
+		if (this.state.secret) {
+			secretInput = (
+				<td>
+					<Item>
+						<Item className="secret-label">SECRET:</Item>
 						<TextArea className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret} />
 					</Item>
 				</td>
-    		);
-    	}
+			);
+		}
 
 		var optionsSecretInput;
 		if (this.state.options || this.state.secret) {
@@ -159,17 +159,17 @@ export class RegistrarInput extends Component {
 			);
 		}
 
-        return (
-        	<Segment className="registrar-input">
+		return (
+			<Segment className="registrar-input">
 				{goClearButtons}
 				{registerButtons}
 				{updateButtons}
-				{revokeButtons}
+				{deactivateButtons}
 				{optionsSecretInput}
 				{addPublicKeyService}
 			</Segment>
-        );
-    }
+		);
+	}
 
 	defaultOptions(operation, driverId) {
 		const options = {
@@ -185,7 +185,7 @@ export class RegistrarInput extends Component {
 				'did:v1': { },
 				'did:erc725': { }
 			},
-			'revoke': {
+			'deactivate': {
 				'did:btcr': { 'chain': 'TESTNET' },
 				'did:sov': { 'network': 'builder' },
 				'did:v1': { },
@@ -209,7 +209,7 @@ export class RegistrarInput extends Component {
 				'did:v1': { },
 				'did:erc725': { }
 			},
-			'revoke': {
+			'deactivate': {
 				'did:btcr': { 'privateKeyWiF': '...' },
 				'did:sov': { 'seed': '...' },
 				'did:v1': { },

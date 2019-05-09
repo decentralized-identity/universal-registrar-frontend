@@ -15,51 +15,51 @@ export class DidResult extends Component {
 
 		var jobIdItem;
 		if (jobId) jobIdItem = (
-    		<Item>
-    			<span className="jobid-label">JOBID:</span> <span className="jobid">{jobId}</span>
-    		</Item>
+			<Item>
+				<span className="jobid-label">JOBID:</span> <span className="jobid">{jobId}</span>
+			</Item>
 		);
 
 		var stateItem;
 		if (state) stateItem = (
-    		<Item className="state-item">
+			<Item className="state-item">
 				<span className="state-label">STATE:</span> <span className={stateClass}>{state}</span>
-    		</Item>
+			</Item>
 		);
 
 		var identifierItem;
 		if (identifier) identifierItem = (
-    		<Segment>
-    			<Item className='identifier-label'>
-    				IDENTIFIER:
-    			</Item>
-		       	<Item className='identifier'>
-        			{identifier}
-        		</Item>
-    		</Segment>
+			<Segment>
+				<Item className='identifier-label'>
+					IDENTIFIER:
+				</Item>
+				<Item className='identifier'>
+					{identifier}
+				</Item>
+			</Segment>
 		);
 
 		var secretItem;
 		if (secret) secretItem = (
-    		<Segment>
-    			<Item className='secret-label'>
-    				SECRET:
-    			</Item>
-		       	<Highlight className='secret'>
-        			{secret}
-        		</Highlight>
-    		</Segment>
+			<Segment>
+				<Item className='secret-label'>
+					SECRET:
+				</Item>
+				<Highlight className='secret'>
+					{secret}
+				</Highlight>
+			</Segment>
 		);
 
-        return (
-        	<div className='did-result'>
-        		{jobIdItem}
-        		{stateItem}
-        		{identifierItem}
-        		{secretItem}
-        	</div>
-        );
-    }
+		return (
+			<div className='did-result'>
+				{jobIdItem}
+				{stateItem}
+				{identifierItem}
+				{secretItem}
+			</div>
+		);
+	}
 }
 
 export default DidResult;
