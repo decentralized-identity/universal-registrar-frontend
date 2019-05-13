@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { Segment, Item, Label, Divider, Button, Input, TextArea } from 'semantic-ui-react';
+import { Segment, Item, Label, Divider, Button, Input, TextArea, List, Grid } from 'semantic-ui-react';
 import { Highlight } from 'react-fast-highlight';
 
 import AddPublicKey from './add/AddPublicKey';
 import AddService from './add/AddService';
+import Service from './add/Service';
 
 export class RegistrarInput extends Component {
 
 	constructor (props) {
 		super(props)
-		this.state = { operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: null, addPublicKeys: null, addAuthentications: null };
-		this.onChangeOptions = this.onChangeOptions.bind(this);
-		this.onChangeSecret = this.onChangeSecret.bind(this);
+		this.state = { operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] };
 	}
 
 	onClickRegister(driverId) {
@@ -30,7 +29,14 @@ export class RegistrarInput extends Component {
 
 	onClickGo() {
 		this.props.onLoading();
-		var data = { 'jobId': this.state.jobId, 'options': JSON.parse(this.state.options), 'secret': JSON.parse(this.state.secret) };
+		var data = {
+			'jobId': this.state.jobId,
+			'options': JSON.parse(this.state.options),
+			'secret': JSON.parse(this.state.secret),
+			'addServices': this.state.addServices,
+			'addPublicKeys': this.state.addPublicKeys,
+			'addAuthentications': this.state.addAuthentications
+		};
 		axios
 			.post(env.backendUrl + '1.0/' + this.state.operation + '?' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
 			.then(response => {
@@ -55,7 +61,7 @@ export class RegistrarInput extends Component {
 	}
 
 	onClickClear() {
-		this.setState({ operation: null, driverId: null, jobId: null, options: null, secret: null });
+		this.setState({ operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] });
 		this.props.onClear();
 	}
 
@@ -65,6 +71,27 @@ export class RegistrarInput extends Component {
 
 	onChangeSecret(e) {
 		this.setState({ secret: e.target.value });
+	}
+
+	onAddService(service) {
+		var addServices = this.state.addServices.concat([ service ]);
+		this.setState({ addServices: addServices });
+	}
+
+	onAddPublicKey(publicKey) {
+		var addPublicKeys = this.state.addPublicKeys.concat([ publicKey ]);
+		this.setState({ addPublicKeys: addPublicKeys });
+	}
+
+	onAddAuthentication(authentication) {
+		var addAuthentications = this.state.addAuthentications.concat([ authentication ]);
+		this.setState({ addAuthentications: addAuthentications });
+	}
+
+	onRemoveService(i) {
+		var addServices = this.state.addServices;
+		addServices.splice(i, 1);
+		this.setState({ addServices: addServices });
 	}
 
 	render() {
@@ -100,13 +127,13 @@ export class RegistrarInput extends Component {
 				<Item className="buttons"><Label>Register:</Label>{registerButtonsList}</Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary key={i} onClick={this.onClickUpdate.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary disabled key={i} onClick={this.onClickUpdate.bind(this, driver.key)}>{driver.name}</Button>
 			);
 			updateButtons = (
 				<Item className="buttons"><Label>Update:</Label>{updateButtonsList}</Item>
 			);
 			const deactivateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary key={i} onClick={this.onClickDeactivate.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary disabled key={i} onClick={this.onClickDeactivate.bind(this, driver.key)}>{driver.name}</Button>
 			);
 			deactivateButtons = (
 				<Item className="buttons"><Label>Deactivate:</Label>{deactivateButtonsList}</Item>
@@ -119,7 +146,7 @@ export class RegistrarInput extends Component {
 				<td>
 					<Item>
 						<Item className="options-label">OPTIONS:</Item>
-						<TextArea className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions} />
+						<TextArea className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions.bind(this)} />
 					</Item>
 				</td>
 			);
@@ -131,7 +158,7 @@ export class RegistrarInput extends Component {
 				<td>
 					<Item>
 						<Item className="secret-label">SECRET:</Item>
-						<TextArea className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret} />
+						<TextArea className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret.bind(this)} />
 					</Item>
 				</td>
 			);
@@ -149,13 +176,39 @@ export class RegistrarInput extends Component {
 			);
 		}
 
-		var addPublicKeyService;
+		var addServicesContainer;
 		if ("register" === this.state.operation || "update" === this.state.operation) {
-			addPublicKeyService = (
-				<table>
-					<AddService />
-					<AddPublicKey />
-				</table>
+			const addService = (
+				<AddService onAddService={this.onAddService.bind(this)} />
+			);
+			const addPublicKey = (
+				<AddPublicKey onAddPublicKey={this.onAddPublicKey.bind(this)} />
+			);
+
+			const addServices = this.state.addServices.map((addService, i) =>
+				<Service
+					key={i}
+					i={i}
+					type={addService.type}
+					serviceEndpoint={addService.serviceEndpoint}
+					onRemoveService={this.onRemoveService.bind(this)} />
+			);
+			var addServicesList;
+			if (Object.keys(addServices).length > 0){
+				addServicesList = (
+					<List>
+						{addServices}
+					</List>
+				);
+			}
+
+			addServicesContainer = (
+				<div>
+					<Divider />
+					<Item className="options-label">SERVICES:</Item>
+					{addService}
+					{addServicesList}
+				</div>
 			);
 		}
 
@@ -166,7 +219,7 @@ export class RegistrarInput extends Component {
 				{updateButtons}
 				{deactivateButtons}
 				{optionsSecretInput}
-				{addPublicKeyService}
+				{addServicesContainer}
 			</Segment>
 		);
 	}

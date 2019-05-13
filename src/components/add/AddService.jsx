@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 
-import { Item, Input, Button, Dropdown } from 'semantic-ui-react'
+import { Item, Input, Button, Dropdown, Label } from 'semantic-ui-react'
 
 export class AddService extends Component {
 
 	constructor (props) {
 		super(props)
-		this.state = { type: '', serviceEndpoint: '', example: '' };
-		this.onChangeType = this.onChangeType.bind(this);
-		this.onChangeServiceEndpoint = this.onChangeServiceEndpoint.bind(this);
+		this.state = { type: 'agent', serviceEndpoint: 'http://localhost/', example: '' };
 	}
 
 	onClickAdd() {
-		//this.setState({ operation: 'register', driverId: driverId, jobId: null, options: JSON.stringify(this.defaultOptions(driverId), null, 2) });
-		alert(JSON.stringify(this.state));
+		var service = {
+			'type': this.state.type,
+			'serviceEndpoint': this.state.serviceEndpoint
+		};
+		this.props.onAddService(service);
 	}
 
 	onChangeType(e) {
@@ -32,15 +33,16 @@ export class AddService extends Component {
 	render() {
 		const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
 		return (
-			<tr>
-				<td className="add-service">
-					<Item className="service-label">SERVICE:</Item>
-					<Input label='type' value={this.state.type} onChange={this.onChangeType} />
-					<Input label='url' value={this.state.serviceEndpoint} onChange={this.onChangeServiceEndpoint} />
-					<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
-					<Dropdown placeholder='Service' selection options={examples} value={this.state.example} onChange={this.onChangeExample.bind(this)} />
-				</td>
-			</tr>
+			<table className="add-service">
+				<tr>
+					<td>
+						<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
+						<Dropdown placeholder='type' selection options={examples} value={this.state.example} onChange={this.onChangeExample.bind(this)} />
+						<Input value={this.state.type} onChange={this.onChangeType.bind(this)} />
+						<Input label='url' value={this.state.serviceEndpoint} onChange={this.onChangeServiceEndpoint.bind(this)} />
+					</td>
+				</tr>
+			</table>
 		);
 	}
 }
