@@ -11,7 +11,6 @@ export class Heading extends Component {
 			</Segment>
 		);
 	}
-
 }
 
 export default Heading;
