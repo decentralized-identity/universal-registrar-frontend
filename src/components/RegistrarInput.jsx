@@ -10,25 +10,12 @@ import Service from './add/Service';
 
 export class RegistrarInput extends Component {
 
-	constructor (props) {
+	constructor(props) {
 		super(props)
 		this.state = { operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] };
 	}
 
-	onClickRegister(driverId) {
-		this.setState({ operation: 'register', driverId: driverId, jobId: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
-	}
-
-	onClickUpdate(driverId) {
-		this.setState({ operation: 'update', driverId: driverId, jobId: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
-	}
-
-	onClickDeactivate(driverId) {
-		this.setState({ operation: 'deactivate', driverId: driverId, jobId: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
-	}
-
-	onClickGo() {
-		this.props.onLoading();
+	execute() {
 		var data = {
 			'jobId': this.state.jobId,
 			'options': JSON.parse(this.state.options),
@@ -60,6 +47,23 @@ export class RegistrarInput extends Component {
 			});
 	}
 
+	onClickRegister(driverId) {
+		this.setState({ operation: 'register', driverId: driverId, jobId: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
+	}
+
+	onClickUpdate(driverId) {
+		this.setState({ operation: 'update', driverId: driverId, jobId: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
+	}
+
+	onClickDeactivate(driverId) {
+		this.setState({ operation: 'deactivate', driverId: driverId, jobId: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
+	}
+
+	onClickExecute() {
+		this.props.onLoading();
+		this.execute();
+	}
+
 	onClickClear() {
 		this.setState({ operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] });
 		this.props.onClear();
@@ -74,18 +78,15 @@ export class RegistrarInput extends Component {
 	}
 
 	onAddService(service) {
-		var addServices = this.state.addServices.concat([ service ]);
-		this.setState({ addServices: addServices });
+		this.setState({ addServices: [ ...this.state.addServices, service ] });
 	}
 
 	onAddPublicKey(publicKey) {
-		var addPublicKeys = this.state.addPublicKeys.concat([ publicKey ]);
-		this.setState({ addPublicKeys: addPublicKeys });
+		this.setState({ addPublicKeys: [ ...this.state.addPublicKeys, publicKey ] });
 	}
 
 	onAddAuthentication(authentication) {
-		var addAuthentications = this.state.addAuthentications.concat([ authentication ]);
-		this.setState({ addAuthentications: addAuthentications });
+		this.setState({ addAuthentications: [ ...this.state.addAuthentications, authentication ] });
 	}
 
 	onRemoveService(i) {
@@ -105,12 +106,12 @@ export class RegistrarInput extends Component {
 			);
 		}
 
-		var goClearButtons;
+		var executeClearButtons;
 		if (this.state.operation && this.state.driverId) {
-			goClearButtons = (
+			executeClearButtons = (
 				<Item>
 					{jobIdItem}
-					<Button primary onClick={this.onClickGo.bind(this)}>{this.state.operation} → {this.state.driverId}</Button>
+					<Button primary onClick={this.onClickExecute.bind(this)}>{this.state.operation} → {this.state.driverId}</Button>
 					<Button secondary onClick={this.onClickClear.bind(this)}>Clear</Button>
 				</Item>
 			);
@@ -194,7 +195,7 @@ export class RegistrarInput extends Component {
 					onRemoveService={this.onRemoveService.bind(this)} />
 			);
 			var addServicesList;
-			if (Object.keys(addServices).length > 0){
+			if (Object.keys(addServices).length > 0) {
 				addServicesList = (
 					<List>
 						{addServices}
@@ -214,7 +215,7 @@ export class RegistrarInput extends Component {
 
 		return (
 			<Segment className="registrar-input">
-				{goClearButtons}
+				{executeClearButtons}
 				{registerButtons}
 				{updateButtons}
 				{deactivateButtons}
