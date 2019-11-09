@@ -14,7 +14,7 @@ export class Registrar extends Component {
 
 	constructor (props) {
 		super(props);
-		this.state = { loading: false, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: '' };
+		this.state = { loading: false, didState: null, jobId: null, registrarMetadata: null, methodMetadata: null, error: null };
 	}
 
 	render() {
@@ -30,7 +30,8 @@ export class Registrar extends Component {
 			<DidResult
 				didState={this.state.didState}
 				jobId={this.state.jobId}
-				registrarMetadata={this.state.registrarMetadata} />
+				registrarMetadata={this.state.registrarMetadata}
+				methodMetadata={this.state.methodMetadata} />
 			);
 
 		return (
@@ -68,19 +69,19 @@ export class Registrar extends Component {
 	}
 
 	onClear() {
-		this.setState({ loading: false, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: '' });
+		this.setState({ loading: false, didState: null, jobId: null, registrarMetadata: null, methodMetadata: null, error: null });
 	}
 
 	onLoading() {
-		this.setState({ loading: true, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: '' });
+		this.setState({ loading: true, didState: null, jobId: null, registrarMetadata: null, methodMetadata: null, error: null });
 	}
 
 	onResult(didState, jobId, registrarMetadata, methodMetadata) {
-		this.setState({ loading: false, didState: didState, jobId: jobId, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: '' });
+		this.setState({ loading: false, didState: didState, jobId: jobId, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: null });
 	}
 
-	onError(error) {
-		this.setState({ loading: false, didState: '', jobId: '', registrarMetadata: '', methodMetadata: '', error: error });
+	onError(error, didState, jobId, registrarMetadata, methodMetadata) {
+		this.setState({ loading: false, didState: didState, jobId: jobId, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: error });
 	}
 }
 

@@ -5,12 +5,13 @@ import { Highlight } from 'react-fast-highlight';
 export class RegistrarMetadata extends Component {
 
 	render() {
-		const registrarMetadata = this.props.registrarMetadata == '' ? '' : JSON.stringify(this.props.registrarMetadata, null, 2);
-		return (
+		const registrarMetadataString = this.props.registrarMetadata ? JSON.stringify(this.props.registrarMetadata, null, 2) : null;
+		const registrarMetadata = registrarMetadataString ? (
 			<Highlight className='js'>
-				{registrarMetadata}
+				{registrarMetadataString}
 			</Highlight>
-		);
+		) : null;
+		return registrarMetadata;
 	}
 }
 

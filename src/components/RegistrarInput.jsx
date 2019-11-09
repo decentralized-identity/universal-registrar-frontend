@@ -35,11 +35,24 @@ export class RegistrarInput extends Component {
 				this.props.onResult(didState, jobId, registrarMetadata, methodMetadata);
 			})
 			.catch(error => {
-				if (error.response !== undefined && error.response.data !== undefined) {
-					this.props.onError(error.response.data);
-				} else if (error.request !== undefined) {
+				if (error.response && error.response.data) {
+					var errorString;
+					if (error.response.status === 404)
+						errorString = "No result for " + this.state.input;
+					else
+						errorString = String(error);
+					if (typeof error.response.data === 'object') {
+						const didState = error.response.data.didState;
+						const jobId = error.response.data.jobId;
+						const registrarMetadata = error.response.data.registrarMetadata;
+						const methodMetadata = error.response.data.methodMetadata;
+						this.props.onError(errorString, didState, jobId, registrarMetadata, methodMetadata);
+					} else {
+						this.props.onError(errorString + ': ' + error.response.data);
+					}
+				} else if (error.request) {
 					this.props.onError(String(error) + ": " + JSON.stringify(error.request));
-				} else if (error.message !== undefined) {
+				} else if (error.message) {
 					this.props.onError(error.message);
 				} else {
 					this.props.onError(String(error));
