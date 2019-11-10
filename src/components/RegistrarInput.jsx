@@ -12,7 +12,7 @@ export class RegistrarInput extends Component {
 
 	constructor(props) {
 		super(props)
-		this.state = { operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] };
+		this.state = { operation: null, driverId: null, driverName: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] };
 	}
 
 	execute() {
@@ -60,16 +60,16 @@ export class RegistrarInput extends Component {
 			});
 	}
 
-	onClickRegister(driverId) {
-		this.setState({ operation: 'register', driverId: driverId, jobId: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
+	onClickRegister(driverId, driverName) {
+		this.setState({ operation: 'register', driverId: driverId, driverName: driverName, jobId: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
 	}
 
-	onClickUpdate(driverId) {
-		this.setState({ operation: 'update', driverId: driverId, jobId: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
+	onClickUpdate(driverId, driverName) {
+		this.setState({ operation: 'update', driverId: driverId, driverName: driverName, jobId: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
 	}
 
-	onClickDeactivate(driverId) {
-		this.setState({ operation: 'deactivate', driverId: driverId, jobId: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
+	onClickDeactivate(driverId, driverName) {
+		this.setState({ operation: 'deactivate', driverId: driverId, driverName: driverName, jobId: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
 	}
 
 	onClickExecute() {
@@ -78,7 +78,7 @@ export class RegistrarInput extends Component {
 	}
 
 	onClickClear() {
-		this.setState({ operation: null, driverId: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] });
+		this.setState({ operation: null, driverId: null, driverName: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] });
 		this.props.onClear();
 	}
 
@@ -124,7 +124,7 @@ export class RegistrarInput extends Component {
 			executeClearButtons = (
 				<Item>
 					{jobIdItem}
-					<Button primary onClick={this.onClickExecute.bind(this)}>{this.state.operation} → {this.state.driverId}</Button>
+					<Button primary onClick={this.onClickExecute.bind(this)}>{this.state.operation} → {this.state.driverName}</Button>
 					<Button secondary onClick={this.onClickClear.bind(this)}>Clear</Button>
 				</Item>
 			);
@@ -135,19 +135,19 @@ export class RegistrarInput extends Component {
 		var deactivateButtons;
 		if (! this.state.operation) {
 			const registerButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary key={i} onClick={this.onClickRegister.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary key={i} onClick={this.onClickRegister.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			registerButtons = (
 				<Item className="buttons"><Label>Register:</Label>{registerButtonsList}</Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary disabled key={i} onClick={this.onClickUpdate.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary disabled key={i} onClick={this.onClickUpdate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			updateButtons = (
 				<Item className="buttons"><Label>Update:</Label>{updateButtonsList}</Item>
 			);
 			const deactivateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary disabled key={i} onClick={this.onClickDeactivate.bind(this, driver.key)}>{driver.name}</Button>
+				<Button className="operationButton" primary disabled key={i} onClick={this.onClickDeactivate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			deactivateButtons = (
 				<Item className="buttons"><Label>Deactivate:</Label>{deactivateButtonsList}</Item>
@@ -241,22 +241,19 @@ export class RegistrarInput extends Component {
 	defaultOptions(operation, driverId) {
 		const options = {
 			'register': {
-				'did:btcr': { 'chain': 'TESTNET' },
-				'did:sov': { 'network': 'builder' },
-				'did:v1': { },
-				'did:erc725': { }
+				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
+				'driver-universalregistrar/driver-did-sov': { 'network': 'builder' },
+				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test', 'keytype': 'ed25519' }
 			},
 			'update': {
-				'did:btcr': { 'chain': 'TESTNET' },
-				'did:sov': { 'network': 'builder' },
-				'did:v1': { },
-				'did:erc725': { }
+				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
+				'driver-universalregistrar/driver-did-sov': { 'network': 'builder' },
+				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' }
 			},
 			'deactivate': {
-				'did:btcr': { 'chain': 'TESTNET' },
-				'did:sov': { 'network': 'builder' },
-				'did:v1': { },
-				'did:erc725': { }
+				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
+				'driver-universalregistrar/driver-did-sov': { 'network': 'builder' },
+				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' }
 			}
 		};
 		return options[operation][driverId] ? JSON.stringify(options[operation][driverId], null, 2): null;
@@ -265,22 +262,19 @@ export class RegistrarInput extends Component {
 	defaultSecret(operation, driverId) {
 		const secret = {
 			'register': {
-				'did:btcr': null,
-				'did:sov': null,
-				'did:v1': null,
-				'did:erc725': null
+				'driver-universalregistrar/driver-did-btcr': null,
+				'driver-universalregistrar/driver-did-sov': null,
+				'driver-universalregistrar/driver-did-v1': null
 			},
 			'update': {
-				'did:btcr': { 'privateKeyWiF': '...' },
-				'did:sov': { 'seed': '...' },
-				'did:v1': { },
-				'did:erc725': { }
+				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': '...' },
+				'driver-universalregistrar/driver-did-sov': { 'seed': '...' },
+				'driver-universalregistrar/driver-did-v1': { }
 			},
 			'deactivate': {
-				'did:btcr': { 'privateKeyWiF': '...' },
-				'did:sov': { 'seed': '...' },
-				'did:v1': { },
-				'did:erc725': { }
+				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': '...' },
+				'driver-universalregistrar/driver-did-sov': { 'seed': '...' },
+				'driver-universalregistrar/driver-did-v1': { }
 			}
 		};
 		return secret[operation][driverId] ? JSON.stringify(secret[operation][driverId], null, 2): null;
