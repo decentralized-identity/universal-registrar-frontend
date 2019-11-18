@@ -219,7 +219,7 @@ export class RegistrarInput extends Component {
 			addServicesContainer = (
 				<div>
 					<Divider />
-					<Item className="options-label">SERVICES:</Item>
+					<Item className="label">SERVICES:</Item>
 					{addService}
 					{addServicesList}
 				</div>
