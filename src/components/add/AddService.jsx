@@ -34,14 +34,16 @@ export class AddService extends Component {
 		const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
 		return (
 			<table className="add-service">
-				<tr>
-					<td>
-						<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
-						<Dropdown placeholder='type' selection options={examples} value={this.state.example} onChange={this.onChangeExample.bind(this)} />
-						<Input value={this.state.type} onChange={this.onChangeType.bind(this)} />
-						<Input label='url' value={this.state.serviceEndpoint} onChange={this.onChangeServiceEndpoint.bind(this)} />
-					</td>
-				</tr>
+				<tbody>
+					<tr>
+						<td>
+							<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
+							<Dropdown placeholder='type' selection options={examples} value={this.state.example} onChange={this.onChangeExample.bind(this)} />
+							<Input value={this.state.type} onChange={this.onChangeType.bind(this)} />
+							<Input label='url' value={this.state.serviceEndpoint} onChange={this.onChangeServiceEndpoint.bind(this)} />
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		);
 	}

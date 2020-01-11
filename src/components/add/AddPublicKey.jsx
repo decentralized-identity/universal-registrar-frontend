@@ -27,13 +27,17 @@ export class AddPublicKey extends Component {
 	render() {
 		const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
 		return (
-			<tr>
-				<td className="add-publickey">
-					<Item className="publickey-label">PUBLIC KEY:</Item>
-					<Input label='publicKey' value={this.state.input} onChange={this.onChangeInput} />
-					<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
-				</td>
-			</tr>
+			<table className="add-publickey">
+				<tbody>
+					<tr>
+						<td>
+							<Item className="publickey-label">PUBLIC KEY:</Item>
+							<Input label='publicKey' value={this.state.input} onChange={this.onChangeInput} />
+							<Button primary onClick={this.onClickAdd.bind(this)}>Add</Button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		);
 	}
 }
