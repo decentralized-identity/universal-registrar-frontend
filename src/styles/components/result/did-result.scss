@@ -9,6 +9,11 @@
 	font-weight: bold;
 }
 
+.did-result .state-item {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .did-result .state-finished {
 	background-color: lightgreen;
 	font-family: monospace;
@@ -18,22 +23,23 @@
 
 .did-result .state-wait {
 	background-color: yellow;
+	font-family: monospace;
 	padding: 5px;
-}
-
-.did-result .state-item {
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin: 10px;
 }
 
 .did-result .state-action {
 	background-color: blue;
+	font-family: monospace;
 	padding: 5px;
+	margin: 10px;
 }
 
 .did-result .state-failed {
 	background-color: red;
+	font-family: monospace;
 	padding: 5px;
+	margin: 10px;
 }
 
 .did-result .identifier-label {
