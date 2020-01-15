@@ -242,17 +242,17 @@ export class RegistrarInput extends Component {
 		const options = {
 			'register': {
 				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
-				'driver-universalregistrar/driver-did-sov': { 'network': 'builder' },
+				'driver-universalregistrar/driver-did-sov': { 'network': 'danube' },
 				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test', 'keytype': 'ed25519' }
 			},
 			'update': {
 				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
-				'driver-universalregistrar/driver-did-sov': { 'network': 'builder' },
+				'driver-universalregistrar/driver-did-sov': { 'network': 'danube' },
 				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' }
 			},
 			'deactivate': {
 				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
-				'driver-universalregistrar/driver-did-sov': { 'network': 'builder' },
+				'driver-universalregistrar/driver-did-sov': { 'network': 'danube' },
 				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' }
 			}
 		};
