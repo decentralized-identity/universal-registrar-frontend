@@ -262,9 +262,9 @@ export class RegistrarInput extends Component {
 	defaultSecret(operation, driverId) {
 		const secret = {
 			'register': {
-				'driver-universalregistrar/driver-did-btcr': null,
-				'driver-universalregistrar/driver-did-sov': null,
-				'driver-universalregistrar/driver-did-v1': null
+				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': null },
+				'driver-universalregistrar/driver-did-sov': { 'seed': null },
+				'driver-universalregistrar/driver-did-v1': { }
 			},
 			'update': {
 				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': '...' },
