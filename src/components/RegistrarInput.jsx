@@ -243,17 +243,20 @@ export class RegistrarInput extends Component {
 			'register': {
 				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
 				'driver-universalregistrar/driver-did-sov': { 'network': 'danube' },
-				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test', 'keytype': 'ed25519' }
+				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test', 'keytype': 'ed25519' },
+				'driver-universalregistrar/driver-did-key': { 'keyType': 'Ed25519VerificationKey2018' }
 			},
 			'update': {
-				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
-				'driver-universalregistrar/driver-did-sov': { 'network': 'danube' },
-				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' }
+				'driver-universalregistrar/driver-did-btcr': { },
+				'driver-universalregistrar/driver-did-sov': { },
+				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' },
+				'driver-universalregistrar/driver-did-key': { }
 			},
 			'deactivate': {
 				'driver-universalregistrar/driver-did-btcr': { 'chain': 'TESTNET' },
 				'driver-universalregistrar/driver-did-sov': { 'network': 'danube' },
-				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' }
+				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' },
+				'driver-universalregistrar/driver-did-key': { }
 			}
 		};
 		return options[operation][driverId] ? JSON.stringify(options[operation][driverId], null, 2): null;
@@ -264,17 +267,20 @@ export class RegistrarInput extends Component {
 			'register': {
 				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': null },
 				'driver-universalregistrar/driver-did-sov': { 'seed': null },
-				'driver-universalregistrar/driver-did-v1': { }
+				'driver-universalregistrar/driver-did-v1': { },
+				'driver-universalregistrar/driver-did-key': { }
 			},
 			'update': {
 				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': '...' },
 				'driver-universalregistrar/driver-did-sov': { 'seed': '...' },
-				'driver-universalregistrar/driver-did-v1': { }
+				'driver-universalregistrar/driver-did-v1': { },
+				'driver-universalregistrar/driver-did-key': { }
 			},
 			'deactivate': {
 				'driver-universalregistrar/driver-did-btcr': { 'privateKeyWiF': '...' },
 				'driver-universalregistrar/driver-did-sov': { 'seed': '...' },
-				'driver-universalregistrar/driver-did-v1': { }
+				'driver-universalregistrar/driver-did-v1': { },
+				'driver-universalregistrar/driver-did-key': { }
 			}
 		};
 		return secret[operation][driverId] ? JSON.stringify(secret[operation][driverId], null, 2): null;

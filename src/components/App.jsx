@@ -12,7 +12,8 @@ export class App extends Component {
 		this.state = { drivers: [
 			{id: 'driver-universalregistrar/driver-did-btcr', name: 'did-btcr'},
 			{id: 'driver-universalregistrar/driver-did-sov', name: 'did-sov'},
-			{id: 'driver-universalregistrar/driver-did-v1', name: 'did-v1'}
+			{id: 'driver-universalregistrar/driver-did-v1', name: 'did-v1'},
+			{id: 'driver-universalregistrar/driver-did-key', name: 'did-key'}
 		] };
 	}
 
