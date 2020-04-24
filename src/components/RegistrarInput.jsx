@@ -25,7 +25,7 @@ export class RegistrarInput extends Component {
 			'addAuthentications': this.state.addAuthentications
 		};
 		axios
-			.post(env.backendUrl + '1.0/' + this.state.operation + '?' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
+			.post(env.backendUrl + '1.0/' + this.state.operation + '?' + 'driverId=' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
 			.then(response => {
 				const didState = response.data.didState;
 				const jobId = response.data.jobId;
