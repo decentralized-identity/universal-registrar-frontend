@@ -20,9 +20,11 @@ export class RegistrarInput extends Component {
 			'jobId': this.state.jobId,
 			'options': JSON.parse(this.state.options),
 			'secret': JSON.parse(this.state.secret),
-			'addServices': this.state.addServices,
-			'addPublicKeys': this.state.addPublicKeys,
-			'addAuthentications': this.state.addAuthentications
+			'didDocument': {
+				'service': this.state.addServices,
+				'publicKey': this.state.addPublicKeys,
+				'authentication': this.state.addAuthentications
+			}
 		};
 		axios
 			.post(env.backendUrl + '1.0/' + this.state.operation + '?' + 'driverId=' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
