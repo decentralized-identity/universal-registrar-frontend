@@ -159,8 +159,8 @@ export class RegistrarInput extends Component {
 			optionsInput = (
 				<td>
 					<Item>
-						<Item className="options-label">OPTIONS:</Item>
-						<TextArea className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions.bind(this)} />
+						<Item className="options-label" for={'optionsInput'}>OPTIONS:</Item>
+						<TextArea id={'optionsInput'} className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions.bind(this)} />
 					</Item>
 				</td>
 			);
@@ -171,8 +171,8 @@ export class RegistrarInput extends Component {
 			secretInput = (
 				<td>
 					<Item>
-						<Item className="secret-label">SECRET:</Item>
-						<TextArea className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret.bind(this)} />
+						<Item className="secret-label" for={'secretInput'}>SECRET:</Item>
+						<TextArea id={'secretInput'} className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret.bind(this)} />
 					</Item>
 				</td>
 			);
