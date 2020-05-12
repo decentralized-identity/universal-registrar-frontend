@@ -138,19 +138,19 @@ export class RegistrarInput extends Component {
 				<Button className="operationButton" primary key={i} onClick={this.onClickRegister.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			registerButtons = (
-				<Item className="buttons"><Label>Register:</Label>{registerButtonsList}</Item>
+				<Item className="buttons"><Label><label htmlFor={'registerButtonsList'}>Register:</label></Label><span id={'registerButtonsList'}>{registerButtonsList}</span></Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary disabled key={i} onClick={this.onClickUpdate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			updateButtons = (
-				<Item className="buttons"><Label>Update:</Label>{updateButtonsList}</Item>
+				<Item className="buttons"><Label><label htmlFor={'updateButtonsList'}>Update:</label></Label><span id={'updateButtonsList'}>{updateButtonsList}</span></Item>
 			);
 			const deactivateButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary disabled key={i} onClick={this.onClickDeactivate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			deactivateButtons = (
-				<Item className="buttons"><Label>Deactivate:</Label>{deactivateButtonsList}</Item>
+				<Item className="buttons"><Label><label htmlFor={'deactivateButtonsList'}>Deactivate:</label></Label><span id={'deactivateButtonsList'}>{deactivateButtonsList}</span></Item>
 			);
 		}
 
