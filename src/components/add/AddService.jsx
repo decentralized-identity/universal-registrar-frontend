@@ -33,7 +33,7 @@ export class AddService extends Component {
 	render() {
 		const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
 		return (
-			<table className="add-service">
+			<table id={'services'} className="add-service">
 				<tbody>
 					<tr>
 						<td>
