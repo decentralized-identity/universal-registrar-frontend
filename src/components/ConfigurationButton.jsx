@@ -33,9 +33,7 @@ export class ConfigurationButton extends Component {
 
 	render() {
 		const button = (
-			<h1>
-				<Button onClick={this.onClick.bind(this)}>Configuration</Button>
-			</h1>
+			<Button onClick={this.onClick.bind(this)}><span role={'configuration'}>Configuration</span></Button>
 		);
 		const drivers = this.state.drivers === '' ? '' : JSON.stringify(this.state.drivers, null, 2);
 		return (
