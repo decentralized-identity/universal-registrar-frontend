@@ -140,19 +140,19 @@ export class RegistrarInput extends Component {
 				<Button className="operationButton" primary key={i} onClick={this.onClickRegister.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			registerButtons = (
-				<Item className="buttons"><Label>Register:</Label>{registerButtonsList}</Item>
+				<Item className="buttons"><Label><label htmlFor={'registerButtonsList'}>Register:</label></Label><span id={'registerButtonsList'}>{registerButtonsList}</span></Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary disabled key={i} onClick={this.onClickUpdate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			updateButtons = (
-				<Item className="buttons"><Label>Update:</Label>{updateButtonsList}</Item>
+				<Item className="buttons"><Label><label htmlFor={'updateButtonsList'}>Update:</label></Label><span id={'updateButtonsList'}>{updateButtonsList}</span></Item>
 			);
 			const deactivateButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary disabled key={i} onClick={this.onClickDeactivate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			deactivateButtons = (
-				<Item className="buttons"><Label>Deactivate:</Label>{deactivateButtonsList}</Item>
+				<Item className="buttons"><Label><label htmlFor={'deactivateButtonsList'}>Deactivate:</label></Label><span id={'deactivateButtonsList'}>{deactivateButtonsList}</span></Item>
 			);
 		}
 
@@ -161,8 +161,8 @@ export class RegistrarInput extends Component {
 			optionsInput = (
 				<td>
 					<Item>
-						<Item className="options-label">OPTIONS:</Item>
-						<TextArea className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions.bind(this)} />
+						<Item className="options-label" for={'optionsInput'}>OPTIONS:</Item>
+						<TextArea id={'optionsInput'} className="options" value={this.state.options} cols='60' rows='5' onChange={this.onChangeOptions.bind(this)} />
 					</Item>
 				</td>
 			);
@@ -173,8 +173,8 @@ export class RegistrarInput extends Component {
 			secretInput = (
 				<td>
 					<Item>
-						<Item className="secret-label">SECRET:</Item>
-						<TextArea className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret.bind(this)} />
+						<Item className="secret-label" for={'secretInput'}>SECRET:</Item>
+						<TextArea id={'secretInput'} className="secret" value={this.state.secret} cols='60' rows='5' onChange={this.onChangeSecret.bind(this)} />
 					</Item>
 				</td>
 			);
@@ -221,7 +221,7 @@ export class RegistrarInput extends Component {
 			addServicesContainer = (
 				<div>
 					<Divider />
-					<Item className="label">SERVICES:</Item>
+					<label htmlFor={'services'} className="label">SERVICES:</label>
 					{addService}
 					{addServicesList}
 				</div>
