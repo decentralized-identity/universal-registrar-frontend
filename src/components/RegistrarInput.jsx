@@ -157,7 +157,7 @@ export class RegistrarInput extends Component {
 		}
 
 		var optionsInput;
-		if (this.state.options) {
+		if (this.state.options !== null) {
 			optionsInput = (
 				<td>
 					<Item>
@@ -169,7 +169,7 @@ export class RegistrarInput extends Component {
 		}
 
 		var secretInput;
-		if (this.state.secret) {
+		if (this.state.secret != null) {
 			secretInput = (
 				<td>
 					<Item>
