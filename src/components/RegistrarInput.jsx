@@ -181,7 +181,7 @@ export class RegistrarInput extends Component {
 		}
 
 		var optionsSecretInput;
-		if (this.state.options || this.state.secret) {
+		if (optionsInput || secretInput) {
 			optionsSecretInput = (
 				<table>
 					<tr>
