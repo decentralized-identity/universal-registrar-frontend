@@ -12,12 +12,13 @@ export class RegistrarInput extends Component {
 
 	constructor(props) {
 		super(props)
-		this.state = { operation: null, driverId: null, driverName: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] };
+		this.state = { operation: null, driverId: null, driverName: null, jobId: null, identifier: null,options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] };
 	}
 
 	execute() {
 		var data = {
 			'jobId': this.state.jobId,
+			'identifier': this.state.identifier,
 			'options': JSON.parse(this.state.options),
 			'secret': JSON.parse(this.state.secret),
 			'didDocument': {
@@ -63,15 +64,15 @@ export class RegistrarInput extends Component {
 	}
 
 	onClickRegister(driverId, driverName) {
-		this.setState({ operation: 'register', driverId: driverId, driverName: driverName, jobId: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
+		this.setState({ operation: 'register', driverId: driverId, driverName: driverName, jobId: null, identifier: null, options: this.defaultOptions('register', driverId), secret: this.defaultSecret('register', driverId) });
 	}
 
 	onClickUpdate(driverId, driverName) {
-		this.setState({ operation: 'update', driverId: driverId, driverName: driverName, jobId: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
+		this.setState({ operation: 'update', driverId: driverId, driverName: driverName, jobId: null, identifier: null, options: this.defaultOptions('update', driverId), secret: this.defaultSecret('update', driverId) });
 	}
 
 	onClickDeactivate(driverId, driverName) {
-		this.setState({ operation: 'deactivate', driverId: driverId, driverName: driverName, jobId: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
+		this.setState({ operation: 'deactivate', driverId: driverId, driverName: driverName, jobId: null, identifier: null, options: this.defaultOptions('deactivate', driverId), secret: this.defaultSecret('deactivate', driverId) });
 	}
 
 	onClickExecute() {
@@ -79,8 +80,14 @@ export class RegistrarInput extends Component {
 		this.execute();
 	}
 
+	onClickJobCheck(e) {
+		this.props.onLoading();
+		this.execute();
+		e.preventDefault();
+	}
+
 	onClickClear() {
-		this.setState({ operation: null, driverId: null, driverName: null, jobId: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] });
+		this.setState({ operation: null, driverId: null, driverName: null, jobId: null, identifier: null, options: null, secret: null, addServices: [], addPublicKeys: [], addAuthentications: [] });
 		this.props.onClear();
 	}
 
@@ -90,6 +97,14 @@ export class RegistrarInput extends Component {
 
 	onChangeSecret(e) {
 		this.setState({ secret: e.target.value });
+	}
+
+	onChangeJobId(e) {
+		this.setState({jobId: e.target.value});
+	}
+
+	onChangeIdentifier(e) {
+		this.setState({identifier: e.target.value});
 	}
 
 	onAddService(service) {
@@ -143,16 +158,41 @@ export class RegistrarInput extends Component {
 				<Item className="buttons"><Label><label htmlFor={'registerButtonsList'}>Register:</label></Label><span id={'registerButtonsList'}>{registerButtonsList}</span></Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary disabled key={i} onClick={this.onClickUpdate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
+				<Button className="operationButton" primary key={i} onClick={this.onClickUpdate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			updateButtons = (
 				<Item className="buttons"><Label><label htmlFor={'updateButtonsList'}>Update:</label></Label><span id={'updateButtonsList'}>{updateButtonsList}</span></Item>
 			);
 			const deactivateButtonsList = this.props.drivers.map((driver, i) =>
-				<Button className="operationButton" primary disabled key={i} onClick={this.onClickDeactivate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
+				<Button className="operationButton" primary key={i} onClick={this.onClickDeactivate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
 			deactivateButtons = (
 				<Item className="buttons"><Label><label htmlFor={'deactivateButtonsList'}>Deactivate:</label></Label><span id={'deactivateButtonsList'}>{deactivateButtonsList}</span></Item>
+			);
+		}
+
+		var identifierInput;
+		if ("update" === this.state.operation || "deactivate" === this.state.operation) {
+			identifierInput = (
+				<div className="identifier">
+					<label> Identifier:
+						<input type="text" value={this.state.identifier} onChange={this.onChangeIdentifier.bind(this)}/>
+					</label>
+				</div>
+			);
+		}
+
+		var jobIdInput;
+		if (this.state.operation) {
+			jobIdInput = (
+				<div className="jobid">
+					<form onSubmit={this.onClickJobCheck.bind(this)}>
+						<label> JOB ID:
+							<input type="text" value={this.state.jobId} onChange={this.onChangeJobId.bind(this)}/>
+						</label>
+						<input type="submit" value="Check Job"/>
+					</form>
+				</div>
 			);
 		}
 
@@ -233,7 +273,9 @@ export class RegistrarInput extends Component {
 				{executeClearButtons}
 				{registerButtons}
 				{updateButtons}
+				{jobIdInput}
 				{deactivateButtons}
+				{identifierInput}
 				{optionsSecretInput}
 				{addServicesContainer}
 			</Segment>
@@ -249,7 +291,7 @@ export class RegistrarInput extends Component {
 				'driver-universalregistrar/driver-did-key': { 'keyType': 'Ed25519VerificationKey2018' }
 			},
 			'update': {
-				'driver-universalregistrar/driver-did-btcr': { },
+				'driver-universalregistrar/driver-did-btcr': {'chain': 'TESTNET' },
 				'driver-universalregistrar/driver-did-sov': { },
 				'driver-universalregistrar/driver-did-v1': { 'ledger': 'test' },
 				'driver-universalregistrar/driver-did-key': { }
