@@ -26,17 +26,35 @@ export class RegistrarInput extends Component {
 	}
 
 	execute() {
-		var data = {
-			'jobId': this.state.jobId,
-			'identifier': this.state.identifier,
-			'options': JSON.parse(this.state.options),
-			'secret': JSON.parse(this.state.secret),
-			'didDocument': {
-				'service': this.state.addServices,
-				'publicKey': this.state.addPublicKeys,
-				'authentication': this.state.addAuthentications
-			}
-		};
+		var data;
+
+		if ("update" === this.state.operation || "deactivate" === this.state.operation) {
+			data = {
+				'jobId': this.state.jobId,
+				'identifier': this.state.identifier,
+				'options': JSON.parse(this.state.options),
+				'secret': JSON.parse(this.state.secret),
+				'didDocument': {
+					'service': this.state.addServices,
+					'publicKey': this.state.addPublicKeys,
+					'authentication': this.state.addAuthentications
+				}
+			};
+		}
+
+		if ("register" === this.state.operation) {
+			data = {
+				'jobId': this.state.jobId,
+				'options': JSON.parse(this.state.options),
+				'secret': JSON.parse(this.state.secret),
+				'didDocument': {
+					'service': this.state.addServices,
+					'publicKey': this.state.addPublicKeys,
+					'authentication': this.state.addAuthentications
+				}
+			};
+		}
+
 		axios
 			.post(env.backendUrl + '1.0/' + this.state.operation + '?' + 'driverId=' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
 			.then(response => {
@@ -117,7 +135,6 @@ export class RegistrarInput extends Component {
 	onClickJobCheck(e) {
 		this.props.onLoading();
 		this.execute();
-		// this.state.jobId='';
 		e.preventDefault();
 	}
 
