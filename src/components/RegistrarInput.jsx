@@ -319,7 +319,7 @@ export class RegistrarInput extends Component {
 		if (this.state.didDocument != null) {
 			didDocumentInput = (
 				<Item>
-					<Item className="diddocument-label" for={'didDocumentInput'}>DID DOCUMENT::</Item>
+					<Item className="diddocument-label" for={'didDocumentInput'}>DID DOCUMENT:</Item>
 					<TextArea id={'didDocumentInput'} className="diddocument" value={this.state.didDocument} cols='60' rows='5'
 							  onChange={this.onChangeDidDocument.bind(this)}/>
 				</Item>
