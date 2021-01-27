@@ -19,14 +19,23 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: null,
 			secret: null,
-			addServices: [],
+			didDocument: null,
 			addPublicKeys: [],
-			addAuthentications: []
+			addServices: []
 		};
 	}
 
 	execute() {
 		var data;
+
+		if ("register" === this.state.operation) {
+			data = {
+				'jobId': this.state.jobId,
+				'options': JSON.parse(this.state.options),
+				'secret': JSON.parse(this.state.secret),
+				'didDocument': JSON.parse(this.state.didDocument)
+			};
+		}
 
 		if ("update" === this.state.operation || "deactivate" === this.state.operation) {
 			data = {
@@ -34,24 +43,7 @@ export class RegistrarInput extends Component {
 				'identifier': this.state.identifier,
 				'options': JSON.parse(this.state.options),
 				'secret': JSON.parse(this.state.secret),
-				'didDocument': {
-					'service': this.state.addServices,
-					'publicKey': this.state.addPublicKeys,
-					'authentication': this.state.addAuthentications
-				}
-			};
-		}
-
-		if ("register" === this.state.operation) {
-			data = {
-				'jobId': this.state.jobId,
-				'options': JSON.parse(this.state.options),
-				'secret': JSON.parse(this.state.secret),
-				'didDocument': {
-					'service': this.state.addServices,
-					'publicKey': this.state.addPublicKeys,
-					'authentication': this.state.addAuthentications
-				}
+				'didDocument': JSON.parse(this.state.didDocument)
 			};
 		}
 
@@ -99,7 +91,10 @@ export class RegistrarInput extends Component {
 			jobId: null,
 			identifier: null,
 			options: this.defaultOptions('register', driverId),
-			secret: this.defaultSecret('register', driverId)
+			secret: this.defaultSecret('register', driverId),
+			didDocument: this.defaultDidDocument('register', driverId),
+			addPublicKeys: [],
+			addServices: [],
 		});
 	}
 
@@ -111,7 +106,10 @@ export class RegistrarInput extends Component {
 			jobId: null,
 			identifier: null,
 			options: this.defaultOptions('update', driverId),
-			secret: this.defaultSecret('update', driverId)
+			secret: this.defaultSecret('update', driverId),
+			didDocument: this.defaultDidDocument('update', driverId),
+			addPublicKeys: [],
+			addServices: [],
 		});
 	}
 
@@ -123,7 +121,10 @@ export class RegistrarInput extends Component {
 			jobId: null,
 			identifier: null,
 			options: this.defaultOptions('deactivate', driverId),
-			secret: this.defaultSecret('deactivate', driverId)
+			secret: this.defaultSecret('deactivate', driverId),
+			didDocument: this.defaultDidDocument('deactivate', driverId),
+			addPublicKeys: [],
+			addServices: [],
 		});
 	}
 
@@ -147,19 +148,11 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: null,
 			secret: null,
-			addServices: [],
+			didDocument: null,
 			addPublicKeys: [],
-			addAuthentications: []
+			addServices: []
 		});
 		this.props.onClear();
-	}
-
-	onChangeOptions(e) {
-		this.setState({options: e.target.value});
-	}
-
-	onChangeSecret(e) {
-		this.setState({secret: e.target.value});
 	}
 
 	onChangeJobId(e) {
@@ -170,16 +163,30 @@ export class RegistrarInput extends Component {
 		this.setState({identifier: e.target.value});
 	}
 
-	onAddService(service) {
-		this.setState({addServices: [...this.state.addServices, service]});
+	onChangeOptions(e) {
+		this.setState({options: e.target.value});
+	}
+
+	onChangeSecret(e) {
+		this.setState({secret: e.target.value});
+	}
+
+	onChangeDidDocument(e) {
+		this.setState({didDocument: e.target.value});
 	}
 
 	onAddPublicKey(publicKey) {
 		this.setState({addPublicKeys: [...this.state.addPublicKeys, publicKey]});
 	}
 
-	onAddAuthentication(authentication) {
-		this.setState({addAuthentications: [...this.state.addAuthentications, authentication]});
+	onAddService(service) {
+		this.setState({addServices: [...this.state.addServices, service]});
+	}
+
+	onRemovePublicKey(i) {
+		var addPublicKeys = this.state.addPublicKeys;
+		addPublicKeys.splice(i, 1);
+		this.setState({addPublicKeys: addPublicKeys});
 	}
 
 	onRemoveService(i) {
@@ -195,7 +202,7 @@ export class RegistrarInput extends Component {
 				<Grid.Column width='10'>
 					<Form onSubmit={this.onClickJobCheck.bind(this)}>
 						<Form.Group inline>
-							<Form.Input label='JOB ID:' placeholder='...'
+							<Form.Input label='JOB&nbsp;ID:' placeholder='...'
 										width='6'
 										value={this.state.jobId}
 										onChange={this.onChangeJobId.bind(this)}/>
@@ -308,6 +315,17 @@ export class RegistrarInput extends Component {
 			);
 		}
 
+		var didDocumentInput;
+		if (this.state.didDocument != null) {
+			didDocumentInput = (
+				<Item>
+					<Item className="diddocument-label" for={'didDocumentInput'}>DID DOCUMENT::</Item>
+					<TextArea id={'didDocumentInput'} className="diddocument" value={this.state.didDocument} cols='60' rows='5'
+							  onChange={this.onChangeDidDocument.bind(this)}/>
+				</Item>
+			);
+		}
+
 		var addServicesContainer;
 		if ("register" === this.state.operation || "update" === this.state.operation) {
 			const addService = (
@@ -352,7 +370,7 @@ export class RegistrarInput extends Component {
 				{deactivateButtons}
 				{identifierInput}
 				{optionsSecretInput}
-				{addServicesContainer}
+				{didDocumentInput}
 			</Segment>
 		);
 	}
@@ -403,6 +421,18 @@ export class RegistrarInput extends Component {
 			}
 		};
 		return secret[operation][driverId] ? JSON.stringify(secret[operation][driverId], null, 2) : null;
+	}
+
+	defaultDidDocument(operation, driverId) {
+	    const didDocument = {
+                 "@context": "https://www.w3.org/ns/did/v1",
+                 "id": "did:...",
+                 "authentication": [{
+                 }],
+                 "service": [{
+                 }]
+               };
+       return JSON.stringify(didDocument, null, 2);
 	}
 }
 
