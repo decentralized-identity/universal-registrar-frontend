@@ -26,9 +26,11 @@ export class RegistrarInput extends Component {
 	}
 
 	execute() {
+		var operation;
 		var data;
 
-		if ("register" === this.state.operation) {
+		if ("create" === this.state.operation) {
+			operation = 'register';
 			data = {
 				'jobId': this.state.jobId,
 				'options': JSON.parse(this.state.options),
@@ -38,6 +40,7 @@ export class RegistrarInput extends Component {
 		}
 
 		if ("update" === this.state.operation || "deactivate" === this.state.operation) {
+			operation = this.state.operation;
 			data = {
 				'jobId': this.state.jobId,
 				'identifier': this.state.identifier,
@@ -48,7 +51,7 @@ export class RegistrarInput extends Component {
 		}
 
 		axios
-			.post(env.backendUrl + '1.0/' + this.state.operation + '?' + 'driverId=' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
+			.post(env.backendUrl + '1.0/' + operation + '?' + 'driverId=' + encodeURIComponent(this.state.driverId), JSON.stringify(data))
 			.then(response => {
 				const didState = response.data.didState;
 				const jobId = response.data.jobId;
@@ -83,16 +86,16 @@ export class RegistrarInput extends Component {
 			});
 	}
 
-	onClickRegister(driverId, driverName) {
+	onClickCreate(driverId, driverName) {
 		this.setState({
-			operation: 'register',
+			operation: 'create',
 			driverId: driverId,
 			driverName: driverName,
 			jobId: null,
 			identifier: null,
-			options: this.defaultOptions('register', driverId),
-			secret: this.defaultSecret('register', driverId),
-			didDocument: this.defaultDidDocument('register', driverId),
+			options: this.defaultOptions('create', driverId),
+			secret: this.defaultSecret('create', driverId),
+			didDocument: this.defaultDidDocument('create', driverId),
 			addPublicKeys: [],
 			addServices: [],
 		});
@@ -233,17 +236,17 @@ export class RegistrarInput extends Component {
 		}
 
 
-		var registerButtons;
+		var createButtons;
 		var updateButtons;
 		var deactivateButtons;
 		if (!this.state.operation) {
-			const registerButtonsList = this.props.drivers.map((driver, i) =>
+			const createButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary key={i}
-						onClick={this.onClickRegister.bind(this, driver.id, driver.name)}>{driver.name}</Button>
+						onClick={this.onClickCreate.bind(this, driver.id, driver.name)}>{driver.name}</Button>
 			);
-			registerButtons = (
-				<Item className="buttons"><Label><label htmlFor={'registerButtonsList'}>Register:</label></Label><span
-					id={'registerButtonsList'}>{registerButtonsList}</span></Item>
+			createButtons = (
+				<Item className="buttons"><Label><label htmlFor={'createButtonsList'}>Create:</label></Label><span
+					id={'createButtonsList'}>{createButtonsList}</span></Item>
 			);
 			const updateButtonsList = this.props.drivers.map((driver, i) =>
 				<Button className="operationButton" primary key={i}
@@ -327,7 +330,7 @@ export class RegistrarInput extends Component {
 		}
 
 		var addServicesContainer;
-		if ("register" === this.state.operation || "update" === this.state.operation) {
+		if ("create" === this.state.operation || "update" === this.state.operation) {
 			const addService = (
 				<AddService onAddService={this.onAddService.bind(this)}/>
 			);
@@ -365,7 +368,7 @@ export class RegistrarInput extends Component {
 		return (
 			<Segment className="registrar-input">
 				{executeClearButtons}
-				{registerButtons}
+				{createButtons}
 				{updateButtons}
 				{deactivateButtons}
 				{identifierInput}
@@ -377,7 +380,7 @@ export class RegistrarInput extends Component {
 
 	defaultOptions(operation, driverId) {
 		const options = {
-			'register': {
+			'create': {
 				'driver-universalregistrar/driver-did-btcr': {'chain': 'TESTNET'},
 				'driver-universalregistrar/driver-did-sov': {'network': 'danube'},
 				'driver-universalregistrar/driver-did-v1': {'ledger': 'test', 'keytype': 'ed25519'},
@@ -401,7 +404,7 @@ export class RegistrarInput extends Component {
 
 	defaultSecret(operation, driverId) {
 		const secret = {
-			'register': {
+			'create': {
 				'driver-universalregistrar/driver-did-btcr': {'privateKeyWiF': null},
 				'driver-universalregistrar/driver-did-sov': {'seed': null},
 				'driver-universalregistrar/driver-did-v1': {},
