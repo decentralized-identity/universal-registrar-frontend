@@ -4,40 +4,43 @@
   "description": "Universal Registrar Frontend",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js -p",
-    "dev": "webpack-dev-server --config webpack.dev.js --hot --inline --port 7082"
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --config webpack.dev.js --hot --inline --port 7082"
   },
   "keywords": [
     "DID"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decentralized-identity/universal-registrar-frontend.git"
+  },
   "license": "Apache-2.0",
   "author": "Markus Sabadello",
   "devDependencies": {
-    "@babel/core": "^7.10.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.10.0",
-    "@babel/preset-react": "^7.10.0",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^4.1.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2",
-    "semantic-ui-react": "^1.0.0",
-    "style-loader": "^1.2.1",
-    "terser-webpack-plugin": "^3.0.8",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "url-loader": "^4.1.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.0.9"
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "semantic-ui-react": "^2.0.3",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.1.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "highlight.js": "^10.0.3",
+    "axios": "^0.21.1",
+    "highlight.js": "^10.5.0",
     "jquery": "^3.5.1",
-    "lodash": "^4.17.15",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "lodash": "^4.17.20",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-fast-highlight": "^4.0.0",
     "semantic-ui-css": "^2.4.1"
   }
