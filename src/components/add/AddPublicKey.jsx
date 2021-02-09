@@ -11,7 +11,7 @@ export class AddPublicKey extends Component {
 	}
 
 	onClickAdd() {
-		//this.setState({ operation: 'register', driverId: driverId, jobId: null, options: JSON.stringify(this.defaultOptions(driverId), null, 2) });
+		//this.setState({ operation: 'create', driverId: driverId, jobId: null, options: JSON.stringify(this.defaultOptions(driverId), null, 2) });
 	}
 
 	onChangeExample(e, data) {

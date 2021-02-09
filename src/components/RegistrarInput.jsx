@@ -30,7 +30,7 @@ export class RegistrarInput extends Component {
 		var data;
 
 		if ("create" === this.state.operation) {
-			operation = 'register';
+			operation = 'create';
 			data = {
 				'jobId': this.state.jobId,
 				'options': JSON.parse(this.state.options),
