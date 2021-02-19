@@ -5,7 +5,7 @@ MAINTAINER Markus Sabadello <markus@danubetech.com>
 
 # build universal-registrar-frontend
 
-ADD . /opt/universal-registrar-frontend
+ADD . /opt/universal-registrar-frontend/
 RUN cd /opt/universal-registrar-frontend && npm install && yarn run build
 
 # build image
