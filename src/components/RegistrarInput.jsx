@@ -384,19 +384,25 @@ export class RegistrarInput extends Component {
 				'driver-universalregistrar/driver-did-btcr': {'chain': 'TESTNET'},
 				'driver-universalregistrar/driver-did-sov': {'network': 'danube'},
 				'driver-universalregistrar/driver-did-v1': {'ledger': 'test', 'keytype': 'ed25519'},
-				'driver-universalregistrar/driver-did-key': {'keyType': 'Ed25519VerificationKey2018'}
+				'driver-universalregistrar/driver-did-key': {'keyType': 'Ed25519VerificationKey2018'},
+				'driver-universalregistrar/driver-did-ion': {},
+				'driver-universalregistrar/driver-did-web': {}
 			},
 			'update': {
 				'driver-universalregistrar/driver-did-btcr': {'chain': 'TESTNET'},
 				'driver-universalregistrar/driver-did-sov': {},
 				'driver-universalregistrar/driver-did-v1': {'ledger': 'test'},
-				'driver-universalregistrar/driver-did-key': {}
+				'driver-universalregistrar/driver-did-key': {},
+				'driver-universalregistrar/driver-did-ion': {},
+				'driver-universalregistrar/driver-did-web': {}
 			},
 			'deactivate': {
 				'driver-universalregistrar/driver-did-btcr': {'chain': 'TESTNET'},
 				'driver-universalregistrar/driver-did-sov': {'network': 'danube'},
 				'driver-universalregistrar/driver-did-v1': {'ledger': 'test'},
-				'driver-universalregistrar/driver-did-key': {}
+				'driver-universalregistrar/driver-did-key': {},
+				'driver-universalregistrar/driver-did-ion': {},
+				'driver-universalregistrar/driver-did-web': {}
 			}
 		};
 		return options[operation][driverId] ? JSON.stringify(options[operation][driverId], null, 2) : null;
@@ -408,19 +414,25 @@ export class RegistrarInput extends Component {
 				'driver-universalregistrar/driver-did-btcr': {'privateKeyWiF': null},
 				'driver-universalregistrar/driver-did-sov': {'seed': null},
 				'driver-universalregistrar/driver-did-v1': {},
-				'driver-universalregistrar/driver-did-key': {}
+				'driver-universalregistrar/driver-did-key': {},
+				'driver-universalregistrar/driver-did-ion': {},
+				'driver-universalregistrar/driver-did-web': {}
 			},
 			'update': {
 				'driver-universalregistrar/driver-did-btcr': {'privateKeyWiF': '...'},
 				'driver-universalregistrar/driver-did-sov': {'seed': '...'},
 				'driver-universalregistrar/driver-did-v1': {},
-				'driver-universalregistrar/driver-did-key': {}
+				'driver-universalregistrar/driver-did-key': {},
+				'driver-universalregistrar/driver-did-ion': {},
+				'driver-universalregistrar/driver-did-web': {}
 			},
 			'deactivate': {
 				'driver-universalregistrar/driver-did-btcr': {'privateKeyWiF': '...'},
 				'driver-universalregistrar/driver-did-sov': {'seed': '...'},
 				'driver-universalregistrar/driver-did-v1': {},
-				'driver-universalregistrar/driver-did-key': {}
+				'driver-universalregistrar/driver-did-key': {},
+				'driver-universalregistrar/driver-did-ion': {},
+				'driver-universalregistrar/driver-did-web': {}
 			}
 		};
 		return secret[operation][driverId] ? JSON.stringify(secret[operation][driverId], null, 2) : null;
@@ -429,11 +441,10 @@ export class RegistrarInput extends Component {
 	defaultDidDocument(operation, driverId) {
 	    const didDocument = {
                  "@context": "https://www.w3.org/ns/did/v1",
-                 "id": "did:...",
-                 "authentication": [{
-                 }],
-                 "service": [{
-                 }]
+                 "authentication": [
+                 ],
+                 "service": [
+                 ]
                };
        return JSON.stringify(didDocument, null, 2);
 	}
