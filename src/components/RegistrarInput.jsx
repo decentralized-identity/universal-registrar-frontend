@@ -29,25 +29,31 @@ export class RegistrarInput extends Component {
 		var operation;
 		var data;
 
-		if ("create" === this.state.operation) {
-			operation = 'create';
-			data = {
-				'jobId': this.state.jobId,
-				'options': JSON.parse(this.state.options),
-				'secret': JSON.parse(this.state.secret),
-				'didDocument': JSON.parse(this.state.didDocument)
-			};
-		}
+		try {
+			if ("create" === this.state.operation) {
+				operation = 'create';
+				data = {
+					'jobId': this.state.jobId,
+					'options': JSON.parse(this.state.options),
+					'secret': JSON.parse(this.state.secret),
+					'didDocument': JSON.parse(this.state.didDocument)
+				};
+			}
 
-		if ("update" === this.state.operation || "deactivate" === this.state.operation) {
-			operation = this.state.operation;
-			data = {
-				'jobId': this.state.jobId,
-				'identifier': this.state.identifier,
-				'options': JSON.parse(this.state.options),
-				'secret': JSON.parse(this.state.secret),
-				'didDocument': JSON.parse(this.state.didDocument)
-			};
+			if ("update" === this.state.operation || "deactivate" === this.state.operation) {
+				operation = this.state.operation;
+				data = {
+					'jobId': this.state.jobId,
+					'identifier': this.state.identifier,
+					'options': JSON.parse(this.state.options),
+					'secret': JSON.parse(this.state.secret),
+					'didDocument': JSON.parse(this.state.didDocument)
+				};
+			}
+		} catch (e) {
+
+			this.props.onError("Error while executing operation " + this.state.operation + ": " + e.message);
+			return;
 		}
 
 		axios
