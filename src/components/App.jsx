@@ -10,12 +10,12 @@ export class App extends Component {
 	constructor (props) {
 		super(props);
 		this.state = { drivers: [
-			{id: 'driver-universalregistrar/driver-did-btcr', name: 'did-btcr'},
-			{id: 'driver-universalregistrar/driver-did-sov', name: 'did-sov'},
-			{id: 'driver-universalregistrar/driver-did-v1', name: 'did-v1'},
-			{id: 'driver-universalregistrar/driver-did-key', name: 'did-key'},
-			{id: 'driver-universalregistrar/driver-did-ion', name: 'did-ion'},
-			{id: 'driver-universalregistrar/driver-did-web', name: 'did-web'}
+			{method: 'btcr', name: 'did:btcr'},
+			{method: 'sov', name: 'did:sov'},
+			{method: 'v1', name: 'did:v1'},
+			{method: 'key', name: 'did:key'},
+			{method: 'ion', name: 'did:ion'},
+			{method: 'web', name: 'did:web'}
 		] };
 	}
 
