@@ -31,7 +31,7 @@ export class AddService extends Component {
 	}
 
 	render() {
-		const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
+		const examples = ['DIDComm', 'SecureDataStore', 'EncryptedDataVault', 'LinkedDomains', 'XdiService'].map((example) => ({ text: example, value: example }));
 		return (
 			<table id={'services'} className="add-service">
 				<tbody>

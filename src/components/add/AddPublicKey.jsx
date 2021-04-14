@@ -25,7 +25,7 @@ export class AddPublicKey extends Component {
 //				<Dropdown placeholder='PUBLIC KEY:' selection options={examples} value={this.state.example} onChange={this.onChangeExample.bind(this)} />
 
 	render() {
-		const examples = ['xdi', 'agent', 'hub'].map((example) => ({ text: example, value: example }));
+		const examples = ['EcdsaSecp256k1VerificationKey2019', 'SchnorrSecp256k1VerificationKey2019', 'Ed25519VerificationKey2018', 'Ed25519VerificationKey2020', 'Bls12381G1Key2020', 'Bls12381G2Key2020'].map((example) => ({ text: example, value: example }));
 		return (
 			<table className="add-publickey">
 				<tbody>
