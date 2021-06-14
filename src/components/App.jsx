@@ -15,7 +15,8 @@ export class App extends Component {
 			{method: 'v1', name: 'did:v1'},
 			{method: 'key', name: 'did:key'},
 			{method: 'ion', name: 'did:ion'},
-			{method: 'web', name: 'did:web'}
+			{method: 'web', name: 'did:web'},
+			{method: 'ebsi', name: 'did:ebsi'}
 		] };
 	}
 
