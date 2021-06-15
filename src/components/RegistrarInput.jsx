@@ -392,7 +392,8 @@ export class RegistrarInput extends Component {
 				'v1': {'ledger': 'test', 'keytype': 'ed25519'},
 				'key': {'keyType': 'Ed25519VerificationKey2018'},
 				'ion': {},
-				'web': {}
+				'web': {},
+				'ebsi':{}
 			},
 			'update': {
 				'btcr': {'chain': 'TESTNET'},
@@ -400,7 +401,8 @@ export class RegistrarInput extends Component {
 				'v1': {'ledger': 'test'},
 				'key': {},
 				'ion': {},
-				'web': {}
+				'web': {},
+				'ebsi':{}
 			},
 			'deactivate': {
 				'btcr': {'chain': 'TESTNET'},
@@ -408,7 +410,8 @@ export class RegistrarInput extends Component {
 				'v1': {'ledger': 'test'},
 				'key': {},
 				'ion': {},
-				'web': {}
+				'web': {},
+				'ebsi':{}
 			}
 		};
 		return options[operation][method] ? JSON.stringify(options[operation][method], null, 2) : null;
@@ -422,7 +425,8 @@ export class RegistrarInput extends Component {
 				'v1': {},
 				'key': {},
 				'ion': {},
-				'web': {}
+				'web': {},
+				'ebsi':{'token':"ey......"},
 			},
 			'update': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -430,7 +434,8 @@ export class RegistrarInput extends Component {
 				'v1': {},
 				'key': {},
 				'ion': {},
-				'web': {}
+				'web': {},
+				'ebsi':{'token':"ey......",'privateKey':'..'},
 			},
 			'deactivate': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -438,7 +443,8 @@ export class RegistrarInput extends Component {
 				'v1': {},
 				'key': {},
 				'ion': {},
-				'web': {}
+				'web': {},
+				'ebsi':{}
 			}
 		};
 		return secret[operation][method] ? JSON.stringify(secret[operation][method], null, 2) : null;
