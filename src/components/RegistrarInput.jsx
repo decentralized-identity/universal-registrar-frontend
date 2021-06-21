@@ -402,7 +402,7 @@ export class RegistrarInput extends Component {
 				'key': {},
 				'ion': {},
 				'web': {},
-				'ebsi':{}
+				'ebsi':{'flag':'updateKey'}
 			},
 			'deactivate': {
 				'btcr': {'chain': 'TESTNET'},
