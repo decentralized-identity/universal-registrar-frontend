@@ -53,12 +53,12 @@ export class Registrar extends Component {
 						<DidState
 							didState={this.state.didState} />
 					</Tab.Pane> },
-					{ menuItem: 'REGISTRAR METADATA', render: () =>
+					{ menuItem: 'REGISTRATION METADATA', render: () =>
 					<Tab.Pane loading={this.state.loading}>
 						<DidRegistrationMetadata
 							didRegistrationMetadata={this.state.didRegistrationMetadata} />
 					</Tab.Pane> },
-					{ menuItem: 'METHOD METADATA', render: () =>
+					{ menuItem: 'DOCUMENT METADATA', render: () =>
 					<Tab.Pane loading={this.state.loading}>
 						<DidDocumentMetadata
 							didDocumentMetadata={this.state.didDocumentMetadata} />
