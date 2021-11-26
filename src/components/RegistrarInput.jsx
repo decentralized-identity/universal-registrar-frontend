@@ -3,10 +3,6 @@ import axios from 'axios';
 
 import {Button, Divider, Form, Grid, Input, Item, Label, List, Segment, Table, TextArea} from 'semantic-ui-react';
 
-import AddPublicKey from './add/AddPublicKey';
-import AddService from './add/AddService';
-import Service from './add/Service';
-
 export class RegistrarInput extends Component {
 
 	constructor(props) {
@@ -19,9 +15,7 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: null,
 			secret: null,
-			didDocument: null,
-			addPublicKeys: [],
-			addServices: []
+			didDocument: null
 		};
 	}
 
@@ -101,9 +95,7 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: this.defaultOptions('create', method),
 			secret: this.defaultSecret('create', method),
-			didDocument: this.defaultDidDocument('create', method),
-			addPublicKeys: [],
-			addServices: [],
+			didDocument: this.defaultDidDocument('create', method)
 		});
 	}
 
@@ -116,9 +108,7 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: this.defaultOptions('update', method),
 			secret: this.defaultSecret('update', method),
-			didDocument: this.defaultDidDocument('update', method),
-			addPublicKeys: [],
-			addServices: [],
+			didDocument: this.defaultDidDocument('update', method)
 		});
 	}
 
@@ -131,9 +121,7 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: this.defaultOptions('deactivate', method),
 			secret: this.defaultSecret('deactivate', method),
-			didDocument: this.defaultDidDocument('deactivate', method),
-			addPublicKeys: [],
-			addServices: [],
+			didDocument: this.defaultDidDocument('deactivate', method)
 		});
 	}
 
@@ -157,9 +145,7 @@ export class RegistrarInput extends Component {
 			identifier: null,
 			options: null,
 			secret: null,
-			didDocument: null,
-			addPublicKeys: [],
-			addServices: []
+			didDocument: null
 		});
 		this.props.onClear();
 	}
@@ -182,26 +168,6 @@ export class RegistrarInput extends Component {
 
 	onChangeDidDocument(e) {
 		this.setState({didDocument: e.target.value});
-	}
-
-	onAddPublicKey(publicKey) {
-		this.setState({addPublicKeys: [...this.state.addPublicKeys, publicKey]});
-	}
-
-	onAddService(service) {
-		this.setState({addServices: [...this.state.addServices, service]});
-	}
-
-	onRemovePublicKey(i) {
-		var addPublicKeys = this.state.addPublicKeys;
-		addPublicKeys.splice(i, 1);
-		this.setState({addPublicKeys: addPublicKeys});
-	}
-
-	onRemoveService(i) {
-		var addServices = this.state.addServices;
-		addServices.splice(i, 1);
-		this.setState({addServices: addServices});
 	}
 
 	render() {
@@ -332,42 +298,6 @@ export class RegistrarInput extends Component {
 					<TextArea id={'didDocumentInput'} className="diddocument" value={this.state.didDocument} cols='60' rows='5'
 							  onChange={this.onChangeDidDocument.bind(this)}/>
 				</Item>
-			);
-		}
-
-		var addServicesContainer;
-		if ("create" === this.state.operation || "update" === this.state.operation) {
-			const addService = (
-				<AddService onAddService={this.onAddService.bind(this)}/>
-			);
-			const addPublicKey = (
-				<AddPublicKey onAddPublicKey={this.onAddPublicKey.bind(this)}/>
-			);
-
-			const addServices = this.state.addServices.map((addService, i) =>
-				<Service
-					key={i}
-					i={i}
-					type={addService.type}
-					serviceEndpoint={addService.serviceEndpoint}
-					onRemoveService={this.onRemoveService.bind(this)}/>
-			);
-			var addServicesList;
-			if (Object.keys(addServices).length > 0) {
-				addServicesList = (
-					<List>
-						{addServices}
-					</List>
-				);
-			}
-
-			addServicesContainer = (
-				<div>
-					<Divider/>
-					<label htmlFor={'services'} className="label">SERVICES:</label>
-					{addService}
-					{addServicesList}
-				</div>
 			);
 		}
 
