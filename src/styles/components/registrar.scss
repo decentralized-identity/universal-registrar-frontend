@@ -2,8 +2,8 @@
 @import 'error';
 @import 'result/did-result';
 @import 'result/did-state';
-@import 'result/registrar-metadata';
-@import 'result/method-metadata';
+@import 'result/did-registration-metadata';
+@import 'result/did-document-metadata';
 
 .registrar {
 }

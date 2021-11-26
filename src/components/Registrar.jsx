@@ -7,14 +7,14 @@ import RegistrarInput from './RegistrarInput';
 import Error from './Error';
 import DidResult from './result/DidResult';
 import DidState from './result/DidState';
-import RegistrarMetadata from './result/RegistrarMetadata';
-import MethodMetadata from './result/MethodMetadata';
+import DidRegistrationMetadata from './result/DidRegistrationMetadata';
+import DidDocumentMetadata from './result/DidDocumentMetadata';
 
 export class Registrar extends Component {
 
 	constructor (props) {
 		super(props);
-		this.state = { loading: false, didState: null, jobId: null, registrarMetadata: null, methodMetadata: null, error: null };
+		this.state = { loading: false, didState: null, jobId: null, didRegistrationMetadata: null, didDocumentMetadata: null, error: null };
 	}
 
 	render() {
@@ -30,8 +30,8 @@ export class Registrar extends Component {
 			<DidResult
 				didState={this.state.didState}
 				jobId={this.state.jobId}
-				registrarMetadata={this.state.registrarMetadata}
-				methodMetadata={this.state.methodMetadata} />
+				didRegistrationMetadata={this.state.didRegistrationMetadata}
+				didDocumentMetadata={this.state.didDocumentMetadata} />
 			);
 
 		return (
@@ -55,13 +55,13 @@ export class Registrar extends Component {
 					</Tab.Pane> },
 					{ menuItem: 'REGISTRAR METADATA', render: () =>
 					<Tab.Pane loading={this.state.loading}>
-						<RegistrarMetadata
-							registrarMetadata={this.state.registrarMetadata} />
+						<DidRegistrationMetadata
+							didRegistrationMetadata={this.state.didRegistrationMetadata} />
 					</Tab.Pane> },
 					{ menuItem: 'METHOD METADATA', render: () =>
 					<Tab.Pane loading={this.state.loading}>
-						<MethodMetadata
-							methodMetadata={this.state.methodMetadata} />
+						<DidDocumentMetadata
+							didDocumentMetadata={this.state.didDocumentMetadata} />
 					</Tab.Pane> }
 				]} />
 			</Segment>
@@ -69,19 +69,19 @@ export class Registrar extends Component {
 	}
 
 	onClear() {
-		this.setState({ loading: false, didState: null, jobId: null, registrarMetadata: null, methodMetadata: null, error: null });
+		this.setState({ loading: false, didState: null, jobId: null, didRegistrationMetadata: null, didDocumentMetadata: null, error: null });
 	}
 
 	onLoading() {
-		this.setState({ loading: true, didState: null, jobId: null, registrarMetadata: null, methodMetadata: null, error: null });
+		this.setState({ loading: true, didState: null, jobId: null, didRegistrationMetadata: null, didDocumentMetadata: null, error: null });
 	}
 
-	onResult(didState, jobId, registrarMetadata, methodMetadata) {
-		this.setState({ loading: false, didState: didState, jobId: jobId, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: null });
+	onResult(didState, jobId, didRegistrationMetadata, didDocumentMetadata) {
+		this.setState({ loading: false, didState: didState, jobId: jobId, didRegistrationMetadata: didRegistrationMetadata, didDocumentMetadata: didDocumentMetadata, error: null });
 	}
 
-	onError(error, didState, jobId, registrarMetadata, methodMetadata) {
-		this.setState({ loading: false, didState: didState, jobId: jobId, registrarMetadata: registrarMetadata, methodMetadata: methodMetadata, error: error });
+	onError(error, didState, jobId, didRegistrationMetadata, didDocumentMetadata) {
+		this.setState({ loading: false, didState: didState, jobId: jobId, didRegistrationMetadata: didRegistrationMetadata, didDocumentMetadata: didDocumentMetadata, error: error });
 	}
 }
 

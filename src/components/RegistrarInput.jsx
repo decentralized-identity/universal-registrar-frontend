@@ -20,10 +20,9 @@ export class RegistrarInput extends Component {
 	}
 
 	execute() {
-		var operation;
 		var data;
-
 		try {
+			var operation;
 			if ("create" === this.state.operation) {
 				operation = 'create';
 				data = {
@@ -33,7 +32,6 @@ export class RegistrarInput extends Component {
 					'didDocument': JSON.parse(this.state.didDocument)
 				};
 			}
-
 			if ("update" === this.state.operation || "deactivate" === this.state.operation) {
 				operation = this.state.operation;
 				data = {
@@ -44,21 +42,23 @@ export class RegistrarInput extends Component {
 					'didDocument': JSON.parse(this.state.didDocument)
 				};
 			}
-		} catch (e) {
-
-			this.props.onError("Error while executing operation " + this.state.operation + ": " + e.message);
+		} catch (error) {
+			this.props.onError(error.name + ': ' + error.message);
 			return;
 		}
 
+		const url = env.backendUrl + '1.0/' + operation + '?' + 'method=' + encodeURIComponent(this.state.method);
+		const body = JSON.stringify(data);
+		const config = {'headers': {'Content-Type': 'application/json'}};
 		axios
-			.post(env.backendUrl + '1.0/' + operation + '?' + 'method=' + encodeURIComponent(this.state.method), JSON.stringify(data))
+			.post(url, body, config)
 			.then(response => {
 				const didState = response.data.didState;
 				const jobId = response.data.jobId;
-				const registrarMetadata = response.data.registrarMetadata;
-				const methodMetadata = response.data.methodMetadata;
+				const didRegistrationMetadata = response.data.didRegistrationMetadata;
+				const didDocumentMetadata = response.data.didDocumentMetadata;
 				this.setState({jobId: jobId});
-				this.props.onResult(didState, jobId, registrarMetadata, methodMetadata);
+				this.props.onResult(didState, jobId, didRegistrationMetadata, didDocumentMetadata);
 			})
 			.catch(error => {
 				if (error.response && error.response.data) {
@@ -70,16 +70,16 @@ export class RegistrarInput extends Component {
 					if (typeof error.response.data === 'object') {
 						const didState = error.response.data.didState;
 						const jobId = error.response.data.jobId;
-						const registrarMetadata = error.response.data.registrarMetadata;
-						const methodMetadata = error.response.data.methodMetadata;
-						this.props.onError(errorString, didState, jobId, registrarMetadata, methodMetadata);
+						const didRegistrationMetadata = error.response.data.didRegistrationMetadata ? error.response.data.didRegistrationMetadata : error.response.data;
+						const didDocumentMetadata = error.response.data.didDocumentMetadata;
+						this.props.onError(errorString, didState, jobId, didRegistrationMetadata, didDocumentMetadata);
 					} else {
 						this.props.onError(errorString + ': ' + error.response.data);
 					}
 				} else if (error.request) {
 					this.props.onError(String(error) + ": " + JSON.stringify(error.request));
-				} else if (error.message) {
-					this.props.onError(error.message);
+				} else if (error.name && error.message) {
+					this.props.onError(error.name + ': ' + error.message);
 				} else {
 					this.props.onError(String(error));
 				}
