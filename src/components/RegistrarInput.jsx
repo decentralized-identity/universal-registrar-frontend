@@ -320,7 +320,7 @@ export class RegistrarInput extends Component {
 				'btcr': {'chain': 'TESTNET'},
 				'sov': {'network': 'danube'},
 				'v1': {'ledger': 'test', 'keytype': 'ed25519'},
-				'key': {'keyType': 'Ed25519VerificationKey2018'},
+				'key': {'keyType': 'ed25519'},
 				'ion': {},
 				'web': {},
 				'ebsi':{}
