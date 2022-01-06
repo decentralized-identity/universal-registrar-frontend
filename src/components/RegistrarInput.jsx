@@ -48,7 +48,7 @@ export class RegistrarInput extends Component {
 		}
 
 		const url = env.backendUrl + '1.0/' + operation + '?' + 'method=' + encodeURIComponent(this.state.method);
-		const body = JSON.stringify(data);
+		const body = data;
 		const config = {'headers': {'Content-Type': 'application/json'}};
 		axios
 			.post(url, body, config)
