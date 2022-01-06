@@ -12,7 +12,7 @@ export class RegistrarInput extends Component {
 			method: null,
 			driverName: null,
 			jobId: null,
-			identifier: null,
+			did: null,
 			options: null,
 			secret: null,
 			didDocument: null
@@ -36,7 +36,7 @@ export class RegistrarInput extends Component {
 				operation = this.state.operation;
 				data = {
 					'jobId': this.state.jobId,
-					'identifier': this.state.identifier,
+					'did': this.state.did,
 					'options': JSON.parse(this.state.options),
 					'secret': JSON.parse(this.state.secret),
 					'didDocument': JSON.parse(this.state.didDocument)
@@ -92,7 +92,7 @@ export class RegistrarInput extends Component {
 			method: method,
 			driverName: driverName,
 			jobId: null,
-			identifier: null,
+			did: null,
 			options: this.defaultOptions('create', method),
 			secret: this.defaultSecret('create', method),
 			didDocument: this.defaultDidDocument('create', method)
@@ -105,7 +105,7 @@ export class RegistrarInput extends Component {
 			method: method,
 			driverName: driverName,
 			jobId: null,
-			identifier: null,
+			did: null,
 			options: this.defaultOptions('update', method),
 			secret: this.defaultSecret('update', method),
 			didDocument: this.defaultDidDocument('update', method)
@@ -118,7 +118,7 @@ export class RegistrarInput extends Component {
 			method: method,
 			driverName: driverName,
 			jobId: null,
-			identifier: null,
+			did: null,
 			options: this.defaultOptions('deactivate', method),
 			secret: this.defaultSecret('deactivate', method),
 			didDocument: this.defaultDidDocument('deactivate', method)
@@ -142,7 +142,7 @@ export class RegistrarInput extends Component {
 			method: null,
 			driverName: null,
 			jobId: null,
-			identifier: null,
+			did: null,
 			options: null,
 			secret: null,
 			didDocument: null
@@ -154,8 +154,8 @@ export class RegistrarInput extends Component {
 		this.setState({jobId: e.target.value});
 	}
 
-	onChangeIdentifier(e) {
-		this.setState({identifier: e.target.value});
+	onChangeDid(e) {
+		this.setState({did: e.target.value});
 	}
 
 	onChangeOptions(e) {
@@ -239,14 +239,14 @@ export class RegistrarInput extends Component {
 			);
 		}
 
-		var identifierInput;
+		var didInput;
 		if ("update" === this.state.operation || "deactivate" === this.state.operation) {
-			identifierInput = (
+			didInput = (
 				<Input focus
-					   label="Identifier* "
-					   value={this.state.identifier}
+					   label="DID"
+					   value={this.state.did}
 					   placeholder="DID..."
-					   onChange={this.onChangeIdentifier.bind(this)}/>
+					   onChange={this.onChangeDid.bind(this)}/>
 			);
 		}
 
@@ -307,7 +307,7 @@ export class RegistrarInput extends Component {
 				{createButtons}
 				{updateButtons}
 				{deactivateButtons}
-				{identifierInput}
+				{didInput}
 				{optionsSecretInput}
 				{didDocumentInput}
 			</Segment>
