@@ -8,7 +8,7 @@ export class DidResult extends Component {
 	render() {
 		const jobId = this.props.jobId;
 		const state = this.props.didState.state;
-		const identifier = this.props.didState.identifier;
+		const did = this.props.didState.did;
 		const secret = JSON.stringify(this.props.didState.secret, null, 2);
 
 		var stateClass = 'state-' + state;
@@ -27,14 +27,14 @@ export class DidResult extends Component {
 			</Item>
 		);
 
-		var identifierItem;
-		if (identifier) identifierItem = (
+		var didItem;
+		if (did) didItem = (
 			<Segment>
-				<Item className='identifier-label'>
-					IDENTIFIER:
+				<Item className='did-label'>
+					DID:
 				</Item>
-				<Item className='identifier'>
-					{identifier}
+				<Item className='did'>
+					{did}
 				</Item>
 			</Segment>
 		);
@@ -55,7 +55,7 @@ export class DidResult extends Component {
 			<div className='did-result'>
 				{jobIdItem}
 				{stateItem}
-				{identifierItem}
+				{didItem}
 				{secretItem}
 			</div>
 		);
