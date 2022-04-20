@@ -357,6 +357,7 @@ export class RegistrarInput extends Component {
 				'ion': {},
 				'web': {},
 				'ebsi':{'token':"ey......"},
+				'oyd': {},
 			},
 			'update': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -366,6 +367,7 @@ export class RegistrarInput extends Component {
 				'ion': {},
 				'web': {},
 				'ebsi':{'token':"ey......",'privateKey':'..'},
+				'oyd': {},
 			},
 			'deactivate': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -374,7 +376,8 @@ export class RegistrarInput extends Component {
 				'key': {},
 				'ion': {},
 				'web': {},
-				'ebsi':{}
+				'ebsi':{},
+				'oyd': {},
 			}
 		};
 		return secret[operation][method] ? JSON.stringify(secret[operation][method], null, 2) : null;

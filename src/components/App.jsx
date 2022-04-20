@@ -16,7 +16,8 @@ export class App extends Component {
 			{method: 'key', name: 'did:key'},
 			{method: 'ion', name: 'did:ion'},
 			{method: 'web', name: 'did:web'},
-			{method: 'ebsi', name: 'did:ebsi'}
+			{method: 'ebsi', name: 'did:ebsi'},
+			{method: 'oyd', name: 'did:oyd'},
 		] };
 	}
 
