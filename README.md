@@ -22,5 +22,5 @@ Following command will run the frontend on your local machine at http://localhos
 Production build and creating & runnig a docker container. The frontend will be accessible at http://localhost:80/
 
     npm run build
-    docker build -f ./docker/Dockerfile . -t universalregistrar/uni-registrar-frontend 
-    docker run -p 80:80 universalregistrar/uni-registrar-frontend
+    docker build -f ./docker/Dockerfile . -t universalregistrar/universal-registrar-frontend 
+    docker run -p 80:80 universalregistrar/universal-registrar-frontend
