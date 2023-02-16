@@ -323,7 +323,10 @@ export class RegistrarInput extends Component {
 				'key': {'keyType': 'ed25519'},
 				'ion': {},
 				'web': {},
-				'ebsi':{}
+				'ebsi':{},
+				'cheqd': {
+					'network': 'testnet'
+				}
 			},
 			'update': {
 				'btcr': {'chain': 'TESTNET'},
@@ -332,7 +335,10 @@ export class RegistrarInput extends Component {
 				'key': {},
 				'ion': {},
 				'web': {},
-				'ebsi':{'flag':'updateKey'}
+				'ebsi':{'flag':'updateKey'},
+				'cheqd': {
+					'network': 'testnet'
+				}
 			},
 			'deactivate': {
 				'btcr': {'chain': 'TESTNET'},
@@ -341,7 +347,10 @@ export class RegistrarInput extends Component {
 				'key': {},
 				'ion': {},
 				'web': {},
-				'ebsi':{}
+				'ebsi':{},
+				'cheqd': {
+					'network': 'testnet'
+				}
 			}
 		};
 		return options[operation][method] ? JSON.stringify(options[operation][method], null, 2) : null;
@@ -358,6 +367,7 @@ export class RegistrarInput extends Component {
 				'web': {},
 				'ebsi':{'token':"ey......"},
 				'oyd': {},
+				'cheqd': {'signingResponse': [ {'verificationMethodId': 'did:cheqd:testnet:...', 'signature': '...'} ]}
 			},
 			'update': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -368,6 +378,7 @@ export class RegistrarInput extends Component {
 				'web': {},
 				'ebsi':{'token':"ey......",'privateKey':'..'},
 				'oyd': {},
+				'cheqd': {}
 			},
 			'deactivate': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -378,6 +389,7 @@ export class RegistrarInput extends Component {
 				'web': {},
 				'ebsi':{},
 				'oyd': {},
+				'cheqd': {}
 			}
 		};
 		return secret[operation][method] ? JSON.stringify(secret[operation][method], null, 2) : null;
