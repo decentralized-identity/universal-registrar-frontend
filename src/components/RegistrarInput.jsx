@@ -63,10 +63,11 @@ export class RegistrarInput extends Component {
 			.catch(error => {
 				if (error.response && error.response.data) {
 					var errorString;
-					if (error.response.status === 404)
-						errorString = "No result for " + this.state.input;
-					else
+					if (error.response.data.didState && 'failed' === error.response.data.didState['state']) {
+						errorString = "[" + error.response.data.didState['state'] + "] " + error.response.data.didState['reason'];
+					} else {
 						errorString = String(error);
+					}
 					if (typeof error.response.data === 'object') {
 						const didState = error.response.data.didState;
 						const jobId = error.response.data.jobId;
