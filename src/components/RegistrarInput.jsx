@@ -327,6 +327,9 @@ export class RegistrarInput extends Component {
 				'ebsi':{},
 				'cheqd': {
 					'network': 'testnet'
+				},
+				'ethr': {
+					'network': 'goerli'
 				}
 			},
 			'update': {
@@ -339,6 +342,9 @@ export class RegistrarInput extends Component {
 				'ebsi':{'flag':'updateKey'},
 				'cheqd': {
 					'network': 'testnet'
+				},
+				'ethr': {
+					'network': 'goerli'
 				}
 			},
 			'deactivate': {
@@ -351,6 +357,9 @@ export class RegistrarInput extends Component {
 				'ebsi':{},
 				'cheqd': {
 					'network': 'testnet'
+				},
+				'ethr': {
+					'network': 'goerli'
 				}
 			}
 		};
@@ -368,7 +377,8 @@ export class RegistrarInput extends Component {
 				'web': {},
 				'ebsi':{'token':"ey......"},
 				'oyd': {},
-				'cheqd': {'signingResponse': [ {'verificationMethodId': 'did:cheqd:testnet:...', 'signature': '...'} ]}
+				'cheqd': {'signingResponse': [ {'verificationMethodId': 'did:cheqd:testnet:...', 'signature': '...'} ]},
+				'ethr': {'signingResponse': [ {'verificationMethodId': 'did:ethr:goerli:...', 'signature': '...'} ]}
 			},
 			'update': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -379,7 +389,8 @@ export class RegistrarInput extends Component {
 				'web': {},
 				'ebsi':{'token':"ey......",'privateKey':'..'},
 				'oyd': {},
-				'cheqd': {}
+				'cheqd': {},
+				'ethr': {}
 			},
 			'deactivate': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -390,7 +401,8 @@ export class RegistrarInput extends Component {
 				'web': {},
 				'ebsi':{},
 				'oyd': {},
-				'cheqd': {}
+				'cheqd': {},
+				'ethr': {}
 			}
 		};
 		return secret[operation][method] ? JSON.stringify(secret[operation][method], null, 2) : null;

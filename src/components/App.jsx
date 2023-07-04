@@ -19,6 +19,7 @@ export class App extends Component {
 			{method: 'ebsi', name: 'did:ebsi'},
 			{method: 'oyd', name: 'did:oyd'},
 			{method: 'cheqd', name: 'did:cheqd'},
+			{method: 'ethr', name: 'did:ethr'},
 		] };
 	}
 
