@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 import {Button, Divider, Form, Grid, Input, Item, Label, List, Segment, Table, TextArea} from 'semantic-ui-react';
+import { getBackendUrl } from "./utils";
 
 export class RegistrarInput extends Component {
 
@@ -47,7 +48,7 @@ export class RegistrarInput extends Component {
 			return;
 		}
 
-		const url = env.backendUrl + '1.0/' + operation + '?' + 'method=' + encodeURIComponent(this.state.method);
+		const url = getBackendUrl() + '1.0/' + operation + '?' + 'method=' + encodeURIComponent(this.state.method);
 		const body = data;
 		const config = {'headers': {'Content-Type': 'application/json'}};
 		axios
