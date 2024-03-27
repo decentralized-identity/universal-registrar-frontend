@@ -33,14 +33,24 @@ export class RegistrarInput extends Component {
 					'didDocument': JSON.parse(this.state.didDocument)
 				};
 			}
-			if ("update" === this.state.operation || "deactivate" === this.state.operation) {
+			if ("update" === this.state.operation) {
 				operation = this.state.operation;
 				data = {
 					'jobId': this.state.jobId,
 					'did': this.state.did,
 					'options': JSON.parse(this.state.options),
 					'secret': JSON.parse(this.state.secret),
-					'didDocument': JSON.parse(this.state.didDocument)
+					'didDocumentOperation': ['setDidDocument'],
+					'didDocument': [JSON.parse(this.state.didDocument)]
+				};
+			}
+			if ("deactivate" === this.state.operation) {
+				operation = this.state.operation;
+				data = {
+					'jobId': this.state.jobId,
+					'did': this.state.did,
+					'options': JSON.parse(this.state.options),
+					'secret': JSON.parse(this.state.secret)
 				};
 			}
 		} catch (error) {
