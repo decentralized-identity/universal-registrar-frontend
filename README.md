@@ -23,4 +23,4 @@ Production build and creating & runnig a docker container. The frontend will be 
 
     npm run build
     docker build -f ./docker/Dockerfile . -t universalregistrar/universal-registrar-frontend 
-    docker run -p 80:80 universalregistrar/universal-registrar-frontend
+    docker run -it -p 7082:7082 -e BACKEND_URL="http://localhost:8080" universalregistrar/universal-registrar-frontend
