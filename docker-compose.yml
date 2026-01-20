@@ -1,0 +1,8 @@
+services:
+  universal-registrar-frontend:
+    image: universalregistrar/universal-registrar-frontend:latest
+    container_name: universal-registrar-frontend
+    ports:
+      - "7082:7082"
+    environment:
+      BACKEND_URL: http://localhost:8080/
