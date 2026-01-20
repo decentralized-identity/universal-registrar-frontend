@@ -342,7 +342,8 @@ export class RegistrarInput extends Component {
 				'ethr': {
 					'network': 'goerli'
 				},
-				'dyne':{}
+				'dyne':{},
+				'btcr2': {'network': 'testnet3'}
 			},
 			'update': {
 				'btcr': {'chain': 'TESTNET'},
@@ -358,7 +359,8 @@ export class RegistrarInput extends Component {
 				'ethr': {
 					'network': 'goerli'
 				},
-				'dyne':{}
+				'dyne':{},
+				'btcr2': {'network': 'testnet3'}
 			},
 			'deactivate': {
 				'btcr': {'chain': 'TESTNET'},
@@ -374,7 +376,8 @@ export class RegistrarInput extends Component {
 				'ethr': {
 					'network': 'goerli'
 				},
-				'dyne':{}
+				'dyne':{},
+				'btcr2': {'network': 'testnet3'}
 			}
 		};
 		return options[operation][method] ? JSON.stringify(options[operation][method], null, 2) : null;
@@ -393,7 +396,8 @@ export class RegistrarInput extends Component {
 				'oyd': {},
 				'cheqd': {'signingResponse': [ {'verificationMethodId': 'did:cheqd:testnet:...', 'signature': '...'} ]},
 				'ethr': {'signingResponse': [ {'verificationMethodId': 'did:ethr:goerli:...', 'signature': '...'} ]},
-				'dyne': {}
+				'dyne': {},
+				'btcr2': {}
 			},
 			'update': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -406,7 +410,8 @@ export class RegistrarInput extends Component {
 				'oyd': {},
 				'cheqd': {},
 				'ethr': {},
-				'dyne': {}
+				'dyne': {},
+				'btcr2': {}
 			},
 			'deactivate': {
 				'btcr': {'privateKeyWiF': '...'},
@@ -419,7 +424,8 @@ export class RegistrarInput extends Component {
 				'oyd': {},
 				'cheqd': {},
 				'ethr': {},
-				'dyne': {}
+				'dyne': {},
+				'btcr2': {}
 			}
 		};
 		return secret[operation][method] ? JSON.stringify(secret[operation][method], null, 2) : null;

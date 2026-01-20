@@ -21,6 +21,7 @@ export class App extends Component {
 			{method: 'cheqd', name: 'did:cheqd'},
 			{method: 'ethr', name: 'did:ethr'},
 			{method: 'dyne', name: 'did:dyne'},
+			{method: 'btcr2', name: 'did:btcr2'},
 		] };
 	}
 
